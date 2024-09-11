@@ -1,8 +1,11 @@
 package com.cairu.statuscar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -19,12 +22,23 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextPassword;
     private Button buttonLogin;
     private LoginService loginService;
+    private TextView textViwRecuperarSenha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        textViwRecuperarSenha = findViewById(R.id.editTextRecuperarSenha);
+
+        textViwRecuperarSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Iniciar a nova Activity
+                Intent intent = new Intent(MainActivity.this, RecoveryActivity.class);
+                startActivity(intent);
+            }
+        });
         //Iniciar componente para interface de login
         editTextCpf = findViewById(R.id.editTextCpf);
         editTextPassword = findViewById(R.id.editTextPassword);
