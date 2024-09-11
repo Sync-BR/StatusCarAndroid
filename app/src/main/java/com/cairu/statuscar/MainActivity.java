@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonLogin;
     private LoginService loginService;
     private TextView textViwRecuperarSenha;
+    private Button buttonCadastro;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         textViwRecuperarSenha = findViewById(R.id.editTextRecuperarSenha);
+        buttonCadastro = findViewById(R.id.buttonCadastrar);
+        buttonCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, UsuarioActivity.class);
+                startActivity(intent);
+            }
+        });
 
         textViwRecuperarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,11 +49,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        //Iniciar componente para interface de login
         editTextCpf = findViewById(R.id.editTextCpf);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
-        loginService = new LoginService();
+        LoginService loginService = new LoginService(this);
         //Configura botão de login
         buttonLogin.setOnClickListener(v -> {
             String cpf = editTextCpf.getText().toString();

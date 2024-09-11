@@ -1,5 +1,11 @@
 package com.cairu.statuscar.service;
+import android.content.Context;
+import android.content.Intent;
+
 import androidx.annotation.NonNull;
+
+import com.cairu.statuscar.MainActivity;
+import com.cairu.statuscar.UsuarioActivity;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -12,11 +18,16 @@ import java.io.IOException;
 
 
 public class LoginService {
+    private LoginService loginService;
     private OkHttpClient cliente;
+    private  Context context;
+
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
-    public LoginService() {
-        cliente = new OkHttpClient();
+
+    public LoginService(Context context) {
+        this.context = context;
+        this.cliente = new OkHttpClient();
     }
 
     public void login(String cpf, String password, LoginCallback callback){
@@ -41,6 +52,9 @@ public class LoginService {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if(response.isSuccessful()){
                     System.out.println("Sucesso: " +url);
+
+                        Intent intent = new Intent(context, UsuarioActivity.class);
+                        context.startActivity(intent);
 
                     callback.onSuccess();
                 }else {

@@ -30,6 +30,11 @@
         <activity
             android:name=".RecoveryActivity"
             android:exported="true" />
+        <activity
+            android:name=".CadastroActivity"
+            android:exported="true" />
+        <activity android:name=".UsuarioActivity" />
+        <activity android:name=".VeiculoActivity" />
 
     </application>
 </manifest>
