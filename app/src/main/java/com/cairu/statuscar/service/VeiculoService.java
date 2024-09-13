@@ -5,7 +5,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.cairu.statuscar.VeiculoActivity;
+import com.cairu.statuscar.model.VeiculoModel;
 
 import java.io.IOException;
 
@@ -24,7 +24,7 @@ public class VeiculoService {
     public VeiculoService(OkHttpClient cliente) {
         this.cliente = cliente;
     }
-
+/*
     public void cadastrarVeiculo(String veiculo, String placa, String modelo, int ano, final Context context){
         String url = "http://186.247.89.58:8080/api/veiculos/addveiculo";
         String json = criarJsonCadastro(veiculo,placa,modelo,ano);
@@ -37,7 +37,7 @@ public class VeiculoService {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 // Exibir erro para o usuário
-                ((VeiculoActivity) context).runOnUiThread(() ->
+                ((Veicu) context).runOnUiThread(() ->
                         Toast.makeText(context, "Falha na conexão com o servidor", Toast.LENGTH_SHORT).show()
                 );
             }
@@ -68,4 +68,6 @@ public class VeiculoService {
                 + "\"ano\":\"" + ano + "\""
                 + "}";
     }
+
+ */
 }

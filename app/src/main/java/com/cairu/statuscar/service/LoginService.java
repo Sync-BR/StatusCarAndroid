@@ -38,21 +38,15 @@ public class LoginService {
                 .post(RequestBody.create(null, new byte[0]))
                 .build();
 
-
-        //Enviar requisição
         cliente.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                System.out.println("Falhou: " +url);
                 callback.onFailure(e);
 
             }
-
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if(response.isSuccessful()){
-                    System.out.println("Sucesso: " +url);
-
                         Intent intent = new Intent(context, UsuarioActivity.class);
                         context.startActivity(intent);
 

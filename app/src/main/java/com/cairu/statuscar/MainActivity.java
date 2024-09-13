@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         buttonCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, UsuarioActivity.class);
+                Intent intent = new Intent(MainActivity.this, CadastroActivity.class);
                 startActivity(intent);
             }
         });
