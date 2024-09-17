@@ -4,8 +4,11 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
-import com.cairu.statuscar.MainActivity;
+import com.cairu.statuscar.ConsultoresActivity;
 import com.cairu.statuscar.UsuarioActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -47,10 +50,41 @@ public class LoginService {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if(response.isSuccessful()){
-                        Intent intent = new Intent(context, UsuarioActivity.class);
-                        context.startActivity(intent);
+                    String responseData = response.body().string();
+                    try {
+                        JSONObject jsonResponse = new JSONObject(responseData);
+                        // Extrai os valores de "ID" e "Rank"
+                        int userId = jsonResponse.getInt("ID");
+                        int userRank = jsonResponse.getInt("Rank");
+                        // Exibe os valores ou passe-os para a próxima activity
+                        System.out.println("ID do usuário: " + userId);
+                        System.out.println("Rank do usuário: " + userRank);
 
-                    callback.onSuccess();
+                        switch (userRank){
+                            case 0:
+                                Intent intentUsuarioActivity = new Intent(context, UsuarioActivity.class);
+                                intentUsuarioActivity.putExtra("userId", userId);
+                                intentUsuarioActivity.putExtra("userRank", userRank);
+                                context.startActivity(intentUsuarioActivity);
+                                break;
+                            case 1:
+                                Intent intentConsultoresActivity = new Intent(context, ConsultoresActivity.class);
+                                intentConsultoresActivity.putExtra("userId", userId);
+                                intentConsultoresActivity.putExtra("userRank", userRank);
+                                context.startActivity(intentConsultoresActivity);
+                                break;
+
+                        }
+
+
+
+                        callback.onSuccess();
+                    } catch (JSONException  e) {
+                        e.printStackTrace();
+                        callback.onFailure(e);
+                    }
+
+
                 }else {
                     System.out.println("conta incorreta: " +url);
 

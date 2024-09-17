@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ConsultoresActivity">
+
+    <Spinner
+        android:id="@+id/spinnerClientes"
+        android:layout_width="359dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextCarVeiculo"
+        android:layout_width="359dp"
+        android:layout_height="wrap_content"
+        android:hint="Nome do veiculo"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editTextCarPlaca"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Placa do veiculo"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextCarModelo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Modelo do veiculo"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextCarAno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ano do carro"
+        android:inputType="number" />
+    <Spinner
+        android:id="@+id/spinnerStatusCarro"
+        android:layout_width="359dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonCarCadastrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cadastrar veiculos"
+        android:layout_marginTop="16dp"
+        tools:ignore="MissingConstraints" />
+    <Button
+        android:id="@+id/buttonCarVoltar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Voltar para inicio"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

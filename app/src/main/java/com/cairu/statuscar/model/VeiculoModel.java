@@ -1,34 +1,39 @@
 package com.cairu.statuscar.model;
 
 public class VeiculoModel {
-    private Long id;
-    private String nome;
-    private String modelo;
+    private int id;
+    private int clienteID;
+    private String veiculo;
     private String placa;
+    private String modelo;
     private int ano;
+    private String stateCar;
 
-    public Long getId() {
+    public VeiculoModel() {
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public int getClienteID() {
+        return clienteID;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setClienteID(int clienteID) {
+        this.clienteID = clienteID;
     }
 
-    public String getModelo() {
-        return modelo;
+    public String getVeiculo() {
+        return veiculo;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public void setVeiculo(String veiculo) {
+        this.veiculo = veiculo;
     }
 
     public String getPlaca() {
@@ -39,11 +44,27 @@ public class VeiculoModel {
         this.placa = placa;
     }
 
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
     public int getAno() {
         return ano;
     }
 
     public void setAno(int ano) {
         this.ano = ano;
+    }
+
+    public String getStatus() {
+        return stateCar;
+    }
+
+    public void setStatus(String status) {
+        this.stateCar = status;
     }
 }
