@@ -5,7 +5,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.cairu.statuscar.ConsultoresActivity;
+import com.cairu.statuscar.VeiculosActivity;
 
 import java.io.IOException;
 
@@ -44,7 +44,7 @@ public class ClienteService {
         cliente.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                ((ConsultoresActivity) context).runOnUiThread(() ->
+                ((VeiculosActivity) context).runOnUiThread(() ->
                         Toast.makeText(context, "Erro ao obter clientes", Toast.LENGTH_SHORT).show());
             }
 
@@ -56,13 +56,13 @@ public class ClienteService {
                     List<ClienteModel> clientes = new Gson().fromJson(responseBody, clienteListType);
                     listClientes.addAll(clientes);
 
-                    ((ConsultoresActivity) context).runOnUiThread(() -> {
+                    ((VeiculosActivity) context).runOnUiThread(() -> {
                         // Atualizar a UI com a lista de clientes
 
-                        ((ConsultoresActivity) context).atualizarClientes(clientes);
+                        ((VeiculosActivity) context).atualizarClientes(clientes);
                     });
                 } else {
-                    ((ConsultoresActivity) context).runOnUiThread(() ->
+                    ((VeiculosActivity) context).runOnUiThread(() ->
                             Toast.makeText(context, "Erro ao obter clientes", Toast.LENGTH_SHORT).show());
                 }
             }

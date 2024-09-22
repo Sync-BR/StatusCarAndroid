@@ -1,23 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="16dp">
 
     <TextView
-        android:id="@+id/textViewVeiculoModelo"
+        android:id="@+id/textViewModelo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"/>
+        android:text="Modelo"
+        android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/textViewVeiculoPlaca"
+        android:id="@+id/textViewPlaca"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="Placa"
+        android:textSize="16sp" />
     <TextView
-        android:id="@+id/textViewStatusVeiculos"
+        android:id="@+id/textViewStatus"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="Status"
+        android:textSize="16sp" />
 </LinearLayout>

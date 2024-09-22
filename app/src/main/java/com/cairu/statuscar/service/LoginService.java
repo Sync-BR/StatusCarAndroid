@@ -4,7 +4,8 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
-import com.cairu.statuscar.ConsultoresActivity;
+import com.cairu.statuscar.ConsultorActivity;
+import com.cairu.statuscar.VeiculosActivity;
 import com.cairu.statuscar.UsuarioActivity;
 
 import org.json.JSONException;
@@ -68,7 +69,7 @@ public class LoginService {
                                 context.startActivity(intentUsuarioActivity);
                                 break;
                             case 1:
-                                Intent intentConsultoresActivity = new Intent(context, ConsultoresActivity.class);
+                                Intent intentConsultoresActivity = new Intent(context, ConsultorActivity.class);
                                 intentConsultoresActivity.putExtra("userId", userId);
                                 intentConsultoresActivity.putExtra("userRank", userRank);
                                 context.startActivity(intentConsultoresActivity);

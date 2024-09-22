@@ -1,6 +1,5 @@
 package com.cairu.statuscar;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -28,7 +27,7 @@ import okhttp3.Response;
 
 public class UsuarioActivity extends AppCompatActivity {
     private RecyclerView recyclerViewVeiculos;
-    private ConsultoresActivity consultoresActivity;
+    private VeiculosActivity veiculosActivity;
     private VeiculoAdapter veiculoAdapter;
     private List<VeiculoModel> veiculoList;
 

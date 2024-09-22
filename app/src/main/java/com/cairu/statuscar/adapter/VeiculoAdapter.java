@@ -46,9 +46,9 @@ public class VeiculoAdapter extends RecyclerView.Adapter<VeiculoAdapter.VeiculoV
         TextView textViewStatus;
         public VeiculoViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewModelo = itemView.findViewById(R.id.textViewVeiculoModelo);
-            textViewPlaca = itemView.findViewById(R.id.textViewVeiculoPlaca);
-            textViewStatus = itemView.findViewById(R.id.textViewStatusVeiculos);
+           textViewModelo = itemView.findViewById(R.id.textViewModelo);
+           textViewPlaca = itemView.findViewById(R.id.textViewPlaca);
+           textViewStatus = itemView.findViewById(R.id.textViewStatus);
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.cairu.statuscar;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,20 +19,23 @@ import com.cairu.statuscar.service.VeiculoService;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
+
 import java.util.List;
 
 
-public class ConsultoresActivity extends AppCompatActivity {
+public class VeiculosActivity extends AppCompatActivity {
     private EditText editTextCarVeiculo, editTextCarPlaca, editTextCarModelo, editTextCarAno,editTextCarStatus;
     private Button buttonCarCadastrar, buttonCarVoltar;
     private Spinner spinnerClientes;
     private int idSelected;
+    private Context context;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_consultores);
+        setContentView(R.layout.activity_addveiculos);
         editTextCarVeiculo = findViewById(R.id.editTextCarVeiculo);
         editTextCarPlaca = findViewById(R.id.editTextCarPlaca);
         editTextCarModelo = findViewById(R.id.editTextCarModelo);
@@ -40,14 +45,17 @@ public class ConsultoresActivity extends AppCompatActivity {
         buttonCarVoltar = findViewById(R.id.buttonCarVoltar);
 
         spinnerClientes = findViewById(R.id.spinnerClientes);
-        ClienteService clienteService = new ClienteService(ConsultoresActivity.this);
+        ClienteService clienteService = new ClienteService(VeiculosActivity.this);
         List<ClienteModel> clienteModels = clienteService.consumirClientes();
         System.out.println(clienteModels);
         // Cria um ArrayAdapter usando o layout padrão e a lista de clientes
+  
+
         ArrayAdapter<ClienteModel> adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,clienteModels
         );
+
         System.out.println("IDS: " +adapter.getContext());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Define o listener para o Spinner
@@ -59,7 +67,7 @@ public class ConsultoresActivity extends AppCompatActivity {
                 idSelected = selectedCliente.getId();
                 System.out.println(idSelected+ "ID SELECIONADO");
                 String nomeCliente = selectedCliente.getNome(); // Supondo que exista um método getNome() em ClienteModel
-                Toast.makeText(ConsultoresActivity.this, "Cliente selecionado: " + nomeCliente, Toast.LENGTH_SHORT).show();
+                Toast.makeText(VeiculosActivity.this, "Cliente selecionado: " + nomeCliente, Toast.LENGTH_SHORT).show();
                 // Adicione a lógica que deseja com o cliente selecionado
             }
             @Override
@@ -68,50 +76,14 @@ public class ConsultoresActivity extends AppCompatActivity {
             }
         });
         buttonCarCadastrar.setOnClickListener(v -> cadastrarVeiculo());
-
-
-        //buttonCarVoltar.setOnClickListener(v -> voltarInicio());
-
-        /*
-        spinnerClientes = findViewById(R.id.spinnerClientes);
-
-        // Cria uma lista de clientes
-        List<String> clientes = new ArrayList<>();
-        clientes.add("João Silva");
-        clientes.add("Maria Oliveira");
-        clientes.add("Carlos Pereira");
-        clientes.add("Ana Costa");
-
-        // Cria um ArrayAdapter usando o layout padrão e a lista de clientes
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_item,
-                clientes
-        );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Define o adapter para o Spinner
-        spinnerClientes.setAdapter(adapter);
-
-        // Define o listener para o Spinner
-        spinnerClientes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedCliente = (String) parent.getItemAtPosition(position);
-                Toast.makeText(ConsultoresActivity.this, "Cliente selecionado: " + selectedCliente, Toast.LENGTH_SHORT).show();
-                // Adicione lógica para quando um cliente for selecionado
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Nada a fazer
-            }
+        buttonCarVoltar.setOnClickListener(v -> {
+            Intent intent = new Intent(VeiculosActivity.this, ConsultorActivity.class);
+            startActivity(intent);
+            finish();
         });
-
-
-         */
-
     }
+
+
 
     public void atualizarClientes(List<ClienteModel> clientes) {
         // Criar uma lista de nomes para o Spinner
