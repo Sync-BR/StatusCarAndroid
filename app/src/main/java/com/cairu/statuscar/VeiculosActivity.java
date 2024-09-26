@@ -107,9 +107,9 @@ public class VeiculosActivity extends AppCompatActivity {
             Toast.makeText(this, "Todos os campos devem ser preenchidos", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        System.out.println("teste 1");
         VeiculoService veiculoService = new VeiculoService();
-        veiculoService.cadastrarVeiculos(id,veiculo,placa, modelo,ano,"Aguardando", this);
+        veiculoService.cadastrarVeiculos(id,veiculo,placa, modelo,ano, this);
     }
 
     private void showBottomSheet() {

@@ -34,66 +34,60 @@ public class LoginService {
         this.cliente = new OkHttpClient();
     }
 
-    public void login(String cpf, String password, LoginCallback callback){
+    public void login(String cpf, String password, LoginCallback callback) {
+        System.out.println("cpf: " + cpf + " senha: " + password);
+        String url = "http://186.247.89.58:8080/api/user/login/" + cpf + "/" + password; // Corrigido aqui
+        System.out.println(url);
 
-        String url = "http://186.247.89.58:8080/api/user/login"+cpf+"password"+password;
         Request request = new Request.Builder()
                 .url(url)
-                .post(RequestBody.create(null, new byte[0]))
+                .post(RequestBody.create(null, new byte[0])) // Como não há corpo, pode ser null
                 .build();
 
         cliente.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 callback.onFailure(e);
-
             }
+
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     try {
                         JSONObject jsonResponse = new JSONObject(responseData);
-                        // Extrai os valores de "ID" e "Rank"
-                        int userId = jsonResponse.getInt("ID");
-                        int userRank = jsonResponse.getInt("Rank");
+                        int userRank = jsonResponse.getInt("rank");
                         // Exibe os valores ou passe-os para a próxima activity
-                        System.out.println("ID do usuário: " + userId);
                         System.out.println("Rank do usuário: " + userRank);
 
                         switch (userRank){
                             case 0:
                                 Intent intentUsuarioActivity = new Intent(context, UsuarioActivity.class);
-                                intentUsuarioActivity.putExtra("userId", userId);
+                      //          intentUsuarioActivity.putExtra("userId", userId);
                                 intentUsuarioActivity.putExtra("userRank", userRank);
                                 context.startActivity(intentUsuarioActivity);
                                 break;
                             case 1:
                                 Intent intentConsultoresActivity = new Intent(context, ConsultorActivity.class);
-                                intentConsultoresActivity.putExtra("userId", userId);
+                            //    intentConsultoresActivity.putExtra("userId", userId);
                                 intentConsultoresActivity.putExtra("userRank", userRank);
                                 context.startActivity(intentConsultoresActivity);
                                 break;
 
                         }
-
-
-
                         callback.onSuccess();
-                    } catch (JSONException  e) {
+                    } catch (JSONException e) {
                         e.printStackTrace();
                         callback.onFailure(e);
                     }
-
-
-                }else {
-                    System.out.println("conta incorreta: " +url);
-
-                    callback.onFailure(new IOException("Login ou senha incorretar"));
+                } else {
+                    System.out.println("conta incorreta: " + url);
+                    callback.onFailure(new IOException("Login ou senha incorretos"));
                 }
             }
         });
     }
+
 
 
 }

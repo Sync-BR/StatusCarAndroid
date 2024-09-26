@@ -50,9 +50,10 @@ public class VeiculoService {
         });
     }
 
-    public void cadastrarVeiculos(int clienteID, String veiculo, String placa,String modelo, int ano, String status, Context context){
+    public void cadastrarVeiculos(int clienteID, String modelo, String placa,String marca, int ano, Context context){
         String url = "http://186.247.89.58:8080/api/veiculos/addveiculo";
-        String json = criarJson(clienteID, veiculo, placa, modelo, ano, status);
+        String json = criarJson(clienteID, modelo, placa, marca, ano);
+        System.out.println(json);
         RequestBody requestBody = RequestBody.create(json, JSON);
         Request request = new Request.Builder()
                 .url(url)
@@ -78,19 +79,15 @@ public class VeiculoService {
         });
     }
 
-    private static String criarJson(int clienteID, String veiculo, String placa,String modelo, int ano, String status){
+    private static String criarJson(int clienteID, String modelo, String placa,String marca, int ano){
         return "{"
                 + "\"clienteID\":" + clienteID + ","
-                + "\"veiculo\":\"" + veiculo + "\","
-                + "\"placa\":\"" + placa + "\","
                 + "\"modelo\":\"" + modelo + "\","
-                + "\"ano\":" + ano + ","
-                + "\"status\":\"" + status + "\""
-                + "}";
+                + "\"placa\":\"" + placa + "\","
+                + "\"marca\":\"" + marca + "\","
+                + "\"ano\":" + ano +
+                 "}";
     }
 
-    public static void main(String[] args) {
-        String json = criarJson(1,"fusca", "ZKM455", "teste", 22, "Analise");
-        System.out.println(json);
-    }
+
 }

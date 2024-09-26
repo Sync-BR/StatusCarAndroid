@@ -47,7 +47,7 @@ public class UsuarioActivity extends AppCompatActivity {
 
     private void getVeiculos(int clienteID) {
         OkHttpClient client = new OkHttpClient();
-        String url = "http://186.247.89.58:8080/api/veiculos/consultar/veiculos/" + clienteID; // Atualize o IP se necessário
+        String url = "http://186.247.89.58:8080/api/veiculos/consultar/veiculos/" + clienteID;
         Request request = new Request.Builder().url(url).build();
 
         client.newCall(request).enqueue(new Callback() {
