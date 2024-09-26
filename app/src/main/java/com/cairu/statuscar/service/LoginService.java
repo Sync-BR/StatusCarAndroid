@@ -34,6 +34,9 @@ public class LoginService {
         this.cliente = new OkHttpClient();
     }
 
+    public static void main(String[] args) {
+
+    }
     public void login(String cpf, String password, LoginCallback callback) {
         System.out.println("cpf: " + cpf + " senha: " + password);
         String url = "http://186.247.89.58:8080/api/user/login/" + cpf + "/" + password; // Corrigido aqui
@@ -56,7 +59,7 @@ public class LoginService {
                     String responseData = response.body().string();
                     try {
                         JSONObject jsonResponse = new JSONObject(responseData);
-                        int userRank = jsonResponse.getInt("rank");
+                        int userRank = jsonResponse.getInt("tipo_user");
                         // Exibe os valores ou passe-os para a próxima activity
                         System.out.println("Rank do usuário: " + userRank);
 

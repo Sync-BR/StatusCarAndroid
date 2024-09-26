@@ -27,8 +27,8 @@ public class CadastroService {
 
     public void cadastrarUsuario(String nome, String cpf, String telefone, String email, String endereco, String senha, Context context) {
         String url = "http://186.247.89.58:8080/api/user/adicionar";
-        String rank = "usuario";
-        String json = criarJsonCadastro(nome, cpf, telefone, email, endereco,  senha, rank);
+        String tipoUser = "cliente";
+        String json = criarJsonCadastro(nome, cpf, telefone, email, endereco,  senha, tipoUser);
         System.out.println("Json: " + json);
         RequestBody body = RequestBody.create(json, JSON);
         Request request = new Request.Builder()
@@ -58,7 +58,7 @@ public class CadastroService {
 
 
 
-    private String criarJsonCadastro(String nome, String cpf, String telefone, String email, String endereco, String senha, String rank) {
+    private String criarJsonCadastro(String nome, String cpf, String telefone, String email, String endereco, String senha, String tipoUser) {
         return "{"
                 + "\"nome\":\"" + nome + "\","
                 + "\"cpf\":\"" + cpf + "\","
@@ -66,7 +66,7 @@ public class CadastroService {
                 + "\"email\":\"" + email + "\","
                 + "\"endereco\":\"" + endereco + "\","
                 + "\"senha\":\"" + senha + "\","
-                + "\"rank\":\"" + rank + "\""
+                + "\"tipo_user\":\"" + tipoUser + "\""
                 + "}";
     }
 }

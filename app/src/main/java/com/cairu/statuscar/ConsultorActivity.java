@@ -42,12 +42,12 @@ public class ConsultorActivity  extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Long id = (long) item.getItemId();
         System.out.println(id);
-        if(id == 2131231020){
+        if(id == 2131231019L){
             Intent telaAddVeiculo = new Intent(this, VeiculosActivity.class);
             startActivity(telaAddVeiculo);
             Toast.makeText(this, "Adicionar Veículo selecionado", Toast.LENGTH_SHORT).show();
             return true;
-        } else if(id == 2131231260L){
+        } else if(id == 213123101L){
             Intent telaDeletarVeiculo = new Intent(this, DeleteVeiculosActivity.class);
             startActivity(telaDeletarVeiculo);
         }

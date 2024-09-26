@@ -51,4 +51,6 @@ public class VeiculoAdapter extends RecyclerView.Adapter<VeiculoAdapter.VeiculoV
            textViewStatus = itemView.findViewById(R.id.textViewStatus);
         }
     }
+
+
 }
