@@ -18,6 +18,9 @@
         android:theme="@style/Theme.StatusCar"
         tools:targetApi="31">
         <activity
+            android:name=".service.StatusActivity"
+            android:exported="false" />
+        <activity
             android:name=".VeiculosActivity"
             android:exported="false" />
         <activity
@@ -36,12 +39,10 @@
             android:name=".CadastroActivity"
             android:exported="true" />
         <activity android:name=".UsuarioActivity" />
-        <activity android:name=".ConsultorActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        </activity>
-        <activity android:name="com.cairu.statuscar.DeleteVeiculosActivity" />
-
-
+        <activity
+            android:name=".ConsultorActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"></activity>
+        <activity android:name=".DeleteVeiculosActivity" />
     </application>
 
 </manifest>
