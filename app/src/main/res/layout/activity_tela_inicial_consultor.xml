@@ -7,17 +7,35 @@
     android:gravity="center_horizontal"
     android:background="@drawable/background">
 
-    <!-- Título da Página -->
-    <TextView
-        android:id="@+id/pagina_incial_consultor"
-        android:layout_width="wrap_content"
+    <!-- Container Horizontal para o Título e o Botão -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pagina_inicial"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="115dp"/>
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+
+        <!-- Título da Página -->
+        <TextView
+            android:id="@+id/pagina_incial_consultor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/pagina_inicial"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Botão para Adicionar Veículo -->
+        <Button
+            android:id="@+id/btn_adicionar_veiculo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/adicionar_veiculo"
+            android:backgroundTint="@color/green"
+            />
+    </LinearLayout>
 
     <!-- Logo da Empresa -->
     <ImageView
@@ -45,29 +63,32 @@
         android:id="@+id/text_carro"
         style="@style/Text_View"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginBottom="15dp"
         android:padding="10dp"
-        android:hint="CPF"
+        android:hint="@string/cpf"
         android:textColorHint="@color/black"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <!-- Spinner para Status -->
     <Spinner
         android:id="@+id/spinner_status"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="340dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="15dp"
         android:padding="10dp"
-        style="@style/Text_View"
+        style="@style/SpinnerGreyStyle"
         android:spinnerMode="dropdown" />
 
+    <!-- Botão de Buscar -->
     <Button
+        android:id="@+id/btn_buscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Buscar"/>
+        android:text="Buscar"
+        android:backgroundTint="@color/black"
+        android:layout_marginBottom="16dp"/>
 
-
-    <!-- Aqui você pode adicionar outros elementos que quiser exibir na tela do consultor -->
+    <!-- Outros elementos podem ser adicionados aqui -->
 
 </LinearLayout>
