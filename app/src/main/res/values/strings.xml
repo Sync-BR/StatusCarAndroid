@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">StatusCar</string>
     <string name="adicionar_ve_culo">Adicionar Veículo</string>
-    <string name="alterar_status">Alterar Status</string>
+    <string name="alterar_status">Alterar Status e Previsão</string>
+    <string name="modelo_placa">Modelo Veículo / Placa</string>
+    <string name="data_status_update">DATA</string>
+    <string name="hora_status_update">HORÁRIO</string>
 
 </resources>
