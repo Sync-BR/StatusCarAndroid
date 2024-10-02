@@ -5,5 +5,7 @@
     <string name="modelo_placa">Modelo Veículo / Placa</string>
     <string name="data_status_update">DATA</string>
     <string name="hora_status_update">HORÁRIO</string>
+    <string name="buscar_veiculo">Buscar Veículo</string>
+    <string name="pagina_inicial">Página Inicial</string>
 
 </resources>

@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.cairu.statuscar.service.LoginCallback;
 import com.cairu.statuscar.service.LoginService;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private EditText editTextCpf;
     private EditText editTextPassword;
     private Button buttonLogin;
@@ -30,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         textViwRecuperarSenha = findViewById(R.id.editTextRecuperarSenha);
         buttonCadastro = findViewById(R.id.buttonCadastrar);
         buttonCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CadastroActivity.class);
+                Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
                 startActivity(intent);
             }
         });
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Iniciar a nova Activity
-                Intent intent = new Intent(MainActivity.this, RecoveryActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RecoveryActivity.class);
                 startActivity(intent);
             }
         });
@@ -62,14 +62,14 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess() {
                     runOnUiThread(() ->
-                            Toast.makeText(MainActivity.this, "Login bem-sucedido", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(LoginActivity.this, "Login bem-sucedido", Toast.LENGTH_SHORT).show()
                     );
                 }
 
                 @Override
                 public void onFailure(Exception e) {
                     runOnUiThread(() ->
-                            Toast.makeText(MainActivity.this, "Falha no login: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(LoginActivity.this, "Falha no login: " + e.getMessage(), Toast.LENGTH_SHORT).show()
                     );
                 }
 

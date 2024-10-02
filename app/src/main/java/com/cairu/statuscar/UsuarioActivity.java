@@ -35,7 +35,7 @@ public class UsuarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_usuario);
+        setContentView(R.layout.activity_tela_inicial_cliente);
         int userId = getIntent().getIntExtra("userId",-1);
         int userRank = getIntent().getIntExtra("userRank",-1);
         System.out.println("ID: " +userId);
