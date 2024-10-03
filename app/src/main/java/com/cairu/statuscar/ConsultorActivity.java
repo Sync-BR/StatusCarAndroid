@@ -21,8 +21,6 @@ public class ConsultorActivity  extends AppCompatActivity {
     public ConsultorActivity() {
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

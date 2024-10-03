@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/status_consultor"
         android:orientation="vertical"
         android:padding="16dp"
         android:gravity="center_horizontal">
@@ -90,7 +91,8 @@
             android:layout_marginEnd="140dp"
             android:id="@+id/btn_date"
             android:text="@string/data_status_update"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/black"
             android:layout_marginBottom="8dp" />
 
         <!-- Título para Hora -->
@@ -119,16 +121,19 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="130dp"
             android:text="@string/hora_status_update"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/black"
             android:layout_marginBottom="15dp" />
 
         <!-- Botão para Alterar o Status -->
         <Button
+            android:id="@+id/btn_alterarStatus"
             style="@style/Button_Update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/alterar_status"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"/>
 
     </LinearLayout>
 

@@ -58,7 +58,4 @@
         android:layout_marginBottom="16dp"
         />
 
-
-    <!-- Aqui você pode adicionar outros elementos que quiser exibir na tela do consultor -->
-
 </LinearLayout>

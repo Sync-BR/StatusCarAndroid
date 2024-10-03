@@ -12,31 +12,27 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.cairu.statuscar.ConsultorActivity;
 import com.cairu.statuscar.R;
 
-public class StatusActivity extends AppCompatActivity {
-    private TextView textCarro;
-    private Button btnData;
-    private Button btnHora;
-    private Button btnAlterarStatus;
-
+public class StatusConfirmacaoActivity extends AppCompatActivity{
+    private TextView textStatusConfirmacao;
+    private Button btnVoltarInicio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_status_consultor);
-        textCarro = findViewById(R.id.text_carro);
-        btnData = findViewById(R.id.btn_date);
-        btnHora = findViewById(R.id.btn_time);
-        btnAlterarStatus.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_status_confirmacao);
+        textStatusConfirmacao = findViewById(R.id.text_status_confirmacao);
+        btnVoltarInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(StatusActivity.this, StatusConfirmacaoActivity.class);
+                Intent intent = new Intent(StatusConfirmacaoActivity.this, ConsultorActivity.class);
                 startActivity(intent);
             }
         });
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.status_consultor), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.status_confirmacao), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
