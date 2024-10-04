@@ -3,6 +3,8 @@ package com.cairu.statuscar.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,7 +34,7 @@ public class VeiculoAdapter extends RecyclerView.Adapter<VeiculoAdapter.VeiculoV
         VeiculoModel veiculo = veiculoList.get(position);
         holder.textViewModelo.setText(veiculo.getModelo());
         holder.textViewPlaca.setText(veiculo.getPlaca());
-        holder.textViewStatus.setText(veiculo.getStatus());
+       // holder.textViewStatus.setText(veiculo.getStatus());
     }
 
     @Override

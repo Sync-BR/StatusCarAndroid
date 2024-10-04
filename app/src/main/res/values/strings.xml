@@ -9,6 +9,9 @@
     <string name="pagina_inicial">Página Inicial</string>
     <string name="adicionar_veiculo">Adicionar Veículo</string>
     <string name="cpf">CPF</string>
-    <string name="voltar_pagina_inicial">Voltar a Página Inicial</string>
-
+    <string-array name="status_array">
+        <item>Em análise</item>
+        <item>Pendente</item>
+        <item>Finalizado</item>
+    </string-array>
 </resources>

@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.cairu.statuscar.service.LoginCallback;
 import com.cairu.statuscar.service.LoginService;
+import com.cairu.statuscar.service.NotificationHelper;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText editTextCpf;
@@ -24,13 +25,15 @@ public class LoginActivity extends AppCompatActivity {
     private LoginService loginService;
     private TextView textViwRecuperarSenha;
     private Button buttonCadastro;
-
+    private NotificationHelper notificationHelper ;
+    private static final String CHANNEL_ID = "statuscar_channel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
+
         textViwRecuperarSenha = findViewById(R.id.editTextRecuperarSenha);
         buttonCadastro = findViewById(R.id.buttonCadastrar);
         buttonCadastro.setOnClickListener(new View.OnClickListener() {
