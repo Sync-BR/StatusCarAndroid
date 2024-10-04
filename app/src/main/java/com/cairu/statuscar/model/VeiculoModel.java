@@ -3,13 +3,28 @@ package com.cairu.statuscar.model;
 public class VeiculoModel {
     private int id;
     private int clienteID;
-    private String veiculo;
-    private String placa;
     private String modelo;
+    private String placa;
+    private String marca;
     private int ano;
-    private String stateCar;
+    private String previsao; // Presumindo que você tenha um campo para a previsão
+    private String statusAtual;
 
     public VeiculoModel() {
+    }
+
+    @Override
+    public String toString() {
+        return "VeiculoModel{" +
+                "id=" + id +
+                ", clienteID=" + clienteID +
+                ", modelo='" + modelo + '\'' +
+                ", placa='" + placa + '\'' +
+                ", marca='" + marca + '\'' +
+                ", ano=" + ano +
+                ", previsao='" + previsao + '\'' +
+                ", statusAtual='" + statusAtual + '\'' +
+                '}';
     }
 
     public int getId() {
@@ -28,12 +43,12 @@ public class VeiculoModel {
         this.clienteID = clienteID;
     }
 
-    public String getVeiculo() {
-        return veiculo;
+    public String getModelo() {
+        return modelo;
     }
 
-    public void setVeiculo(String veiculo) {
-        this.veiculo = veiculo;
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 
     public String getPlaca() {
@@ -44,12 +59,12 @@ public class VeiculoModel {
         this.placa = placa;
     }
 
-    public String getModelo() {
-        return modelo;
+    public String getMarca() {
+        return marca;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public int getAno() {
@@ -60,11 +75,19 @@ public class VeiculoModel {
         this.ano = ano;
     }
 
-    public String getStatus() {
-        return stateCar;
+    public String getPrevisao() {
+        return previsao;
     }
 
-    public void setStatus(String status) {
-        this.stateCar = status;
+    public void setPrevisao(String previsao) {
+        this.previsao = previsao;
+    }
+
+    public String getStatusAtual() {
+        return statusAtual;
+    }
+
+    public void setStatusAtual(String statusAtual) {
+        this.statusAtual = statusAtual;
     }
 }

@@ -60,19 +60,20 @@ public class LoginService {
                     try {
                         JSONObject jsonResponse = new JSONObject(responseData);
                         int userRank = jsonResponse.getInt("tipo_user");
+                        String jsonCpf = jsonResponse.getString("cpf");
                         // Exibe os valores ou passe-os para a próxima activity
                         System.out.println("Rank do usuário: " + userRank);
 
                         switch (userRank){
                             case 0:
                                 Intent intentUsuarioActivity = new Intent(context, UsuarioActivity.class);
-                      //          intentUsuarioActivity.putExtra("userId", userId);
+                                System.out.println(jsonCpf);
+                                intentUsuarioActivity.putExtra("cpf", jsonCpf);
                                 intentUsuarioActivity.putExtra("userRank", userRank);
                                 context.startActivity(intentUsuarioActivity);
                                 break;
                             case 1:
                                 Intent intentConsultoresActivity = new Intent(context, ConsultorActivity.class);
-                            //    intentConsultoresActivity.putExtra("userId", userId);
                                 intentConsultoresActivity.putExtra("userRank", userRank);
                                 context.startActivity(intentConsultoresActivity);
                                 break;
