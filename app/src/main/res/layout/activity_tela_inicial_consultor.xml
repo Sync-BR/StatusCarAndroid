@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,15 +8,14 @@
     android:gravity="center_horizontal"
     android:background="@drawable/background">
 
-    <!-- Container Horizontal para o Título e o Botão -->
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:layout_marginBottom="16dp">
 
-        <!-- Título da Página -->
         <TextView
             android:id="@+id/pagina_incial_consultor"
             android:layout_width="0dp"
@@ -27,17 +27,15 @@
             android:textColor="@color/white"
             android:layout_marginEnd="8dp" />
 
-        <!-- Botão para Adicionar Veículo -->
-        <Button
-            android:id="@+id/btn_adicionar_veiculo"
+        <!-- Botão para abrir o PopupMenu -->
+        <ImageButton
+            android:id="@+id/menu_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/adicionar_veiculo"
-            android:backgroundTint="@color/green"
-            />
+            android:src="@drawable/baseline_menu_24"
+            android:contentDescription="Menu" />
     </LinearLayout>
 
-    <!-- Logo da Empresa -->
     <ImageView
         android:id="@+id/logo"
         android:layout_width="120dp"
@@ -46,7 +44,6 @@
         android:layout_gravity="center"
         android:layout_marginBottom="20dp" />
 
-    <!-- Título para Buscar Veículo -->
     <TextView
         android:id="@+id/label_carro"
         android:layout_width="wrap_content"
@@ -58,7 +55,6 @@
         android:layout_gravity="center"
         android:layout_marginBottom="10dp" />
 
-    <!-- Campo de Busca (CPF) -->
     <EditText
         android:id="@+id/text_carro"
         style="@style/Text_View"
@@ -70,7 +66,6 @@
         android:textColorHint="@color/black"
         android:textStyle="bold"/>
 
-    <!-- Spinner para Status -->
     <Spinner
         android:id="@+id/spinner_status"
         android:layout_width="340dp"
@@ -80,15 +75,12 @@
         style="@style/SpinnerGreyStyle"
         android:spinnerMode="dropdown" />
 
-    <!-- Botão de Buscar -->
     <Button
         android:id="@+id/btn_buscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/black"
         android:text="Buscar" />
-
-    <!-- Outros elementos podem ser adicionados aqui -->
 
 </LinearLayout>

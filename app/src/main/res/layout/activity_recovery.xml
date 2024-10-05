@@ -1,49 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/background"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="246dp"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
-
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Recuperar Senha"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"/>
-
-    <EditText
-        android:id="@+id/editTextEmail"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Digite seu e-mail"
-        android:inputType="textEmailAddress"/>
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="16dp">
 
-    <Button
-        android:id="@+id/buttonSubmit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Enviar Recuperação"/>
-    <Button
-        android:id="@+id/buttonBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Voltar"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"/>
+        <TextView
+            android:id="@+id/appName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status Car"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginBottom="16dp"
+            android:gravity="center" />
 
+        <!-- Imagem -->
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="200dp"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/logo"
+            android:layout_marginBottom="24dp" />
 
+        <!-- Título Recuperar Senha -->
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recuperar Senha"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginBottom="16dp"
+            android:gravity="center" />
 
-</LinearLayout>
+        <!-- Campo E-mail -->
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="350dp"
+            android:layout_height="48dp"
+            style="@style/Text_View"
+            android:layout_marginBottom="16dp"
+            android:padding="12dp"
+            android:hint="Digite seu e-mail"
+            android:inputType="textEmailAddress" />
+
+        <!-- Botão Enviar Recuperação -->
+        <Button
+            android:id="@+id/buttonSubmit"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Enviar Recuperação"
+            android:backgroundTint="@color/green"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Botão Voltar -->
+        <Button
+            android:id="@+id/buttonBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Voltar"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+</ScrollView>

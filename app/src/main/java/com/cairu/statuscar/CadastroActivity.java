@@ -2,7 +2,6 @@ package com.cairu.statuscar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,16 +9,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cairu.statuscar.service.CadastroService;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class CadastroActivity extends AppCompatActivity {
     private EditText editTextNome, editTextCpf, editTextTelefone, editTextEmail, editTextEndereco, editTextSenha, editTextConfirmSenha;
@@ -46,7 +35,7 @@ public class CadastroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastro);
+        setContentView(R.layout.activity_cadastro_usuario);
 
         // Inicializa os campos
         buttonBack = findViewById(R.id.buttonCadastroVoltar);

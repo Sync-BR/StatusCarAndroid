@@ -48,7 +48,7 @@
         style="@style/Button_Update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/voltar_pagina_inicial"
+        android:text="@string/voltar_pagina_incial"
         android:padding="10dp" />
 
 </LinearLayout>

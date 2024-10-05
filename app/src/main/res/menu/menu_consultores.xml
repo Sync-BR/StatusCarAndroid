@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_adicionar"
-        android:title="@string/adicionar_ve_culo" />
+        android:id="@+id/action_add_veiculo"
+        android:title="@string/adicionar_veiculo" />
     <item
-        android:id="@+id/menu_apagar"
-        android:title="Remover Veículo"/>
+        android:id="@+id/action_remove_user"
+        android:title="@string/remover_veiculo"/>
+    <item
+        android:id="@+id/action_add_user"
+        android:title="@string/cadastrar_usuario"/>
 </menu>

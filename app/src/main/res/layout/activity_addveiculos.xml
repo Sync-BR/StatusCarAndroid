@@ -1,79 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".VeiculosActivity">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/pagina_add_veiculos"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal"
+    tools:context=".VeiculosActivity">
+
+    <TextView
+        android:id="@+id/titulo_add_veiculo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/adicionar_veiculo"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginEnd="0dp" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/logo"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="25dp"
+        />
+
+    <TextView
+        android:id="@+id/label_spinner_cliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selecione o cliente"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginBottom="5dp"
+        android:paddingBottom="2dp" />
 
     <Spinner
         android:id="@+id/spinnerClientes"
-        android:layout_width="359dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="340dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="15dp"
+        android:padding="10dp"
+        style="@style/SpinnerGreyStyle"
+        android:spinnerMode="dropdown" />
 
     <EditText
         android:id="@+id/editTextCarVeiculo"
-        android:layout_width="359dp"
+        android:layout_width="340dp"
+        style="@style/Text_View"
         android:layout_height="wrap_content"
         android:hint="Nome do veiculo"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editTextCarPlaca"
-        android:layout_width="match_parent"
+        style="@style/Text_View"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:hint="Placa do veiculo"
         android:inputType="text" />
 
     <EditText
         android:id="@+id/editTextCarModelo"
-        android:layout_width="match_parent"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
+        style="@style/Text_View"
         android:hint="Modelo do veiculo"
         android:inputType="text" />
 
     <EditText
         android:id="@+id/editTextCarAno"
-        android:layout_width="match_parent"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
+        style="@style/Text_View"
         android:hint="Ano do carro"
         android:inputType="number" />
+
+    <TextView
+        android:id="@+id/abel_spinner_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selecione o status"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginBottom="5dp"
+        android:paddingBottom="2dp" />
+
     <Spinner
         android:id="@+id/spinnerStatusVeiculos"
-        android:layout_width="359dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="340dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="15dp"
+        android:padding="10dp"
+        style="@style/SpinnerGreyStyle"
+        android:spinnerMode="dropdown"/>
 
     <EditText
         android:id="@+id/editTextDate"
-        android:layout_width="match_parent"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
-        android:hint="Selecionar data"
+        style="@style/Text_View"
+        android:hint="Selecionar data final"
         android:focusable="false"
         android:clickable="true" />
 
     <Button
         android:id="@+id/buttonCarCadastrar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:backgroundTint="@color/green_light"
         android:text="Cadastrar veiculos"
+        android:textColor="@color/black"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/buttonCarVoltar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Voltar para inicio" />
+        android:backgroundTint="@color/black"
+        android:text="Voltar para inicio"
+        android:textColor="@color/green_light"/>
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
+
+
