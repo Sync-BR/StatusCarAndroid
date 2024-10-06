@@ -1,6 +1,5 @@
 package com.cairu.statuscar;
 
-//import static com.cairu.statuscar.R.id.btn_adicionar_veiculo;
 import okhttp3.OkHttpClient;
 
 import android.annotation.SuppressLint;
@@ -135,48 +134,15 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
             }
         });
 
-        //Metodo abaixo criado para funcionar o menu hamburguer que tem Adicionar Veiculo, Remover Veiculo e Cadastrar usuário
-        //Não consegui concluir essa implementação
 
-        ImageButton menuButton = findViewById(R.id.menu_button);
-        menuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(ConsultorActivity.this, v);
-                popup.getMenuInflater().inflate(R.menu.menu_consultores, popup.getMenu());
-
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @SuppressLint("NonConstantResourceId")
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.action_add_veiculo:
-                                // Ação para Adicionar Veículo
-                                return true;
-                            case R.id.action_remove_user:
-                                // Ação para Cadastrar Usuário
-                                return true;
-                            case R.id.action_add_user:
-                                // Ação para Cadastrar Usuário
-                                return true;
-                            default:
-                                return false;
-                        }
-                    }
-                });
-                popup.show();
-            }
-        });
-
-
-        /*
-        btnAdicionarVeiculo = findViewById(btn_adicionar_veiculo);
+        btnAdicionarVeiculo = findViewById(R.id.btnAdicionarVeiculo);
         btnAdicionarVeiculo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ConsultorActivity.this, VeiculosActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
     }
 
 
