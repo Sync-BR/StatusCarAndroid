@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/status_confirmacao"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".service.StatusConfirmacaoActivity"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/logo"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+    <!-- Título Modelo e Placa do carro -->
+    <TextView
+        android:id="@+id/label_carro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Seu Status foi atualizado!"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="5dp"
+        android:paddingBottom="2dp"/>
+
+    <TextView
+        android:id="@+id/text_status_confirmacao"
+        style="@style/Text_View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:padding="8dp"
+        android:text="Modelo: Palio Fire\nPlaca: HAB0783\nPrevisão: 01/01/2024 00:00\nStatus Atual: Novo Status"
+        android:textColorHint="@color/black"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/btn_alterarStatus"
+        style="@style/Button_Update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/voltar_pagina_incial"
+        android:padding="10dp" />
+
+</LinearLayout>

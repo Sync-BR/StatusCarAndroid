@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/status_consultor"
         android:orientation="vertical"
         android:padding="16dp"
         android:gravity="center_horizontal">
@@ -61,7 +62,7 @@
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="58dp"
-            style="@style/Text_View"
+            style="@style/SpinnerGreyStyle"
             android:layout_marginBottom="10dp" />
 
         <!-- Título para Data -->
@@ -69,7 +70,7 @@
             android:id="@+id/label_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Data do Status"
+            android:text="Data de Previsão"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:paddingBottom="2dp" />
@@ -90,7 +91,8 @@
             android:layout_marginEnd="140dp"
             android:id="@+id/btn_date"
             android:text="@string/data_status_update"
-            android:textColor="@color/black"
+            android:textColor="@color/green_light"
+            android:backgroundTint="@color/black"
             android:layout_marginBottom="8dp" />
 
         <!-- Título para Hora -->
@@ -98,7 +100,7 @@
             android:id="@+id/label_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hora do Status"
+            android:text="Hora de Previsão"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:paddingBottom="2dp" />
@@ -119,16 +121,20 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="130dp"
             android:text="@string/hora_status_update"
-            android:textColor="@color/black"
+            android:textColor="@color/green_light"
+            android:backgroundTint="@color/black"
             android:layout_marginBottom="15dp" />
 
         <!-- Botão para Alterar o Status -->
         <Button
+            android:id="@+id/btn_alterarStatus"
             style="@style/Button_Update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/alterar_status"
-            android:padding="10dp" />
+            android:textColor="@color/green_light"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"/>
 
     </LinearLayout>
 

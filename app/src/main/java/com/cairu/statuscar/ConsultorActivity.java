@@ -1,18 +1,16 @@
 package com.cairu.statuscar;
 
+import static com.cairu.statuscar.R.id.btn_adicionar_veiculo;
 import okhttp3.OkHttpClient;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -153,4 +151,7 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
             }
         });
     }
+
+
+
 }

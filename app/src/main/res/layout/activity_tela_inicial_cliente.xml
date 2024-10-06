@@ -8,16 +8,36 @@
     android:background="@drawable/background">
 
     <!-- Título da Página -->
-    <TextView
-        android:id="@+id/pagina_incial_consultor"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pagina_inicial"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="115dp"/>
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+
+        <!-- Título da Página -->
+        <TextView
+            android:id="@+id/pagina_incial_consultor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/pagina_inicial"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Botão para Adicionar Veículo -->
+        <Button
+            android:id="@+id/btn_perfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_perfil"
+            android:backgroundTint="@color/green_light"
+            android:textColor="@color/black"
+            />
+    </LinearLayout>
+
 
     <!-- Logo da Empresa -->
     <ImageView
@@ -40,12 +60,7 @@
         android:textColor="@color/white"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp" />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewVeiculosRegistred"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
-        android:padding="8dp"/>
+
     <!-- Spinner para Status -->
     <Spinner
         android:id="@+id/spinner_status"
@@ -59,11 +74,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/material_dynamic_neutral30"
-        android:text="Buscar"
-        android:textColor="@color/white" />
-
-
-    <!-- Aqui você pode adicionar outros elementos que quiser exibir na tela do consultor -->
+        android:backgroundTint="@color/green"
+        android:textColor="@color/white"
+        android:text="Buscar"/>
 
 </LinearLayout>
