@@ -35,15 +35,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         textViwRecuperarSenha = findViewById(R.id.editTextRecuperarSenha);
-        buttonCadastro = findViewById(R.id.buttonCadastrar);
-        buttonCadastro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
-                startActivity(intent);
-            }
-        });
-
         textViwRecuperarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

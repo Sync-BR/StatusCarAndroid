@@ -29,10 +29,26 @@
 
         <!-- Botão para Adicionar Veículo -->
         <Button
-            android:id="@+id/btn_adicionar_veiculo"
+            android:id="@+id/btnAdicionarVeiculo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/adicionar_veiculo"
+            android:backgroundTint="@color/green"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+        <!-- Botão para Adicionar Veículo -->
+        <Button
+            android:id="@+id/buttonCadastrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="210dp"
+            android:text="@string/btn_cadastrar_usuario"
             android:backgroundTint="@color/green"
             />
     </LinearLayout>
@@ -86,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/green"
         android:text="Buscar" />
 
     <!-- Outros elementos podem ser adicionados aqui -->

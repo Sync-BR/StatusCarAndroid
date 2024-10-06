@@ -1,15 +1,18 @@
 package com.cairu.statuscar;
 
-import static com.cairu.statuscar.R.id.btn_adicionar_veiculo;
 import okhttp3.OkHttpClient;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -29,6 +32,7 @@ import java.io.IOException;
 
 public class ConsultorActivity  extends AppCompatActivity implements StatusCallback {
     private Button btnAdicionarVeiculo;
+    private Button buttonCadastro;
     private EditText editTextCpf;
     private Spinner spinnerVeiculos;
     private VeiculoModel veiculoSelecionado = new VeiculoModel();
@@ -68,6 +72,15 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_inicial_consultor);
+        buttonCadastro = findViewById(R.id.buttonCadastrar);
+        buttonCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ConsultorActivity.this, CadastroActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         editTextCpf = findViewById(R.id.text_carro);
         spinnerVeiculos = findViewById(R.id.spinner_status);
@@ -131,7 +144,7 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
             }
         });
 
-        btnAdicionarVeiculo = findViewById(btn_adicionar_veiculo);
+        btnAdicionarVeiculo = findViewById(R.id.btnAdicionarVeiculo);
         btnAdicionarVeiculo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,7 +153,4 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
             }
         });
     }
-
-
-
 }
