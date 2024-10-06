@@ -61,7 +61,7 @@ public class UsuarioActivity extends AppCompatActivity {
             }
         }
         notificationService = new NotificationService(this);
-        notificationService.enviarNotificao("Ford ka", "Em analise");
+        notificationService.enviarNotificao("Ford ka", "Aguardando Chegada");
         System.out.println("ID: " +userId);
         recyclerViewVeiculos = findViewById(R.id.recyclerViewVeiculosRegistred);
                 recyclerViewVeiculos.setLayoutManager(new LinearLayoutManager(this));

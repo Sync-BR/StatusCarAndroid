@@ -78,4 +78,12 @@
         android:textColor="@color/white"
         android:text="Buscar"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewVeiculosRegistred"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:scrollbars="vertical"
+        android:visibility="gone"/>
+
 </LinearLayout>

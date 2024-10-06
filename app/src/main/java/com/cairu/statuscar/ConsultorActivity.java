@@ -1,6 +1,5 @@
 package com.cairu.statuscar;
 
-import static com.cairu.statuscar.R.id.btn_adicionar_veiculo;
 import okhttp3.OkHttpClient;
 
 import android.annotation.SuppressLint;
