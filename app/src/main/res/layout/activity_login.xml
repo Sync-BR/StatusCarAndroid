@@ -47,6 +47,7 @@
             android:layout_marginBottom="16dp"
             android:padding="12dp"
             android:hint="CPF"
+            android:textColorHint="@color/black"
             android:inputType="number" />
 
         <!-- Campo Senha -->
@@ -58,6 +59,7 @@
             android:layout_marginBottom="16dp"
             android:padding="12dp"
             android:hint="Senha"
+            android:textColorHint="@color/black"
             android:inputType="textPassword" />
 
         <!-- Botão Entrar -->

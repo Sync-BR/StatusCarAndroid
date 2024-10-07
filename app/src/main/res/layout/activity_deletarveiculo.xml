@@ -34,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Placa"
+        android:textColorHint="@color/black"
         style="@style/Text_View"
         android:inputType="textPersonName" />
 
@@ -42,13 +43,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:backgroundTint="@color/green"
-        android:text="Pesquisar Veículo" />
+        android:backgroundTint="@color/red"
+        android:text="Deletar " />
     <Button
         android:id="@+id/buttonPesquisarVoltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/green"
         android:text="Voltar" />
 </LinearLayout>

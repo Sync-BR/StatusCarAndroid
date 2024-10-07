@@ -33,7 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/adicionar_veiculo"
-            android:backgroundTint="@color/green"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/green_light"
             />
     </LinearLayout>
     <LinearLayout
@@ -42,14 +43,15 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:layout_marginBottom="16dp">
-        <!-- Botão para Adicionar Veículo -->
+
         <Button
             android:id="@+id/buttonCadastrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="210dp"
+            android:layout_marginStart="220dp"
             android:text="@string/btn_cadastrar_usuario"
-            android:backgroundTint="@color/green"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/green_light"
             />
     </LinearLayout>
 

@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".VeiculosActivity">
+    tools:context=".UsuarioActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,6 +43,7 @@
             android:layout_marginBottom="12dp"
             android:padding="12dp"
             android:hint="@string/nome_new"
+            android:textColorHint="@color/black"
             android:inputType="textPersonName" />
 
         <EditText
@@ -53,6 +54,7 @@
             android:layout_marginBottom="12dp"
             android:padding="12dp"
             android:hint="@string/cpf_new"
+            android:textColorHint="@color/black"
             android:inputType="number" />
 
         <EditText
@@ -63,6 +65,7 @@
             android:layout_marginBottom="12dp"
             android:padding="12dp"
             android:hint="@string/telefone_new"
+            android:textColorHint="@color/black"
             android:inputType="phone" />
 
         <EditText
@@ -73,6 +76,7 @@
             android:layout_marginBottom="12dp"
             android:padding="12dp"
             android:hint="@string/e_mail_new"
+            android:textColorHint="@color/black"
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -83,6 +87,7 @@
             android:layout_marginBottom="12dp"
             android:padding="12dp"
             android:hint="@string/endereco_new"
+            android:textColorHint="@color/black"
             android:inputType="textPostalAddress" />
 
         <EditText
@@ -93,6 +98,7 @@
             android:layout_marginBottom="12dp"
             android:padding="12dp"
             android:hint="@string/senha_new"
+            android:textColorHint="@color/black"
             android:inputType="textPassword"/>
 
         <EditText
@@ -103,6 +109,7 @@
             android:layout_marginBottom="24dp"
             android:padding="12dp"
             android:hint="@string/confirmar_senha_new"
+            android:textColorHint="@color/black"
             android:inputType="textPassword" />
 
         <!-- Botões -->

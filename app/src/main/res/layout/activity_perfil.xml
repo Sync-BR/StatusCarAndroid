@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".UsuarioActivity">
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/logo"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/label_cadastro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Perfil"
+            android:layout_gravity="center_horizontal"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginBottom="24dp" />
+
+        <EditText
+        android:id="@+id/editTextNome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Text_View"
+        android:hint="Nome"
+        android:textColorHint="@color/black"
+        android:inputType="textPersonName" />
+
+        <EditText
+        android:id="@+id/editTextCpf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Text_View"
+        android:hint="CPF"
+        android:textColorHint="@color/black"
+        android:inputType="number" />
+
+        <EditText
+        android:id="@+id/editTextTelefone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Text_View"
+        android:hint="Telefone"
+        android:textColorHint="@color/black"
+        android:inputType="phone" />
+
+        <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="E-mail"
+        android:textColorHint="@color/black"
+        style="@style/Text_View"
+        android:inputType="textEmailAddress" />
+
+        <EditText
+        android:id="@+id/editTextEndereco"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Endereço"
+        android:textColorHint="@color/black"
+        style="@style/Text_View"
+        android:inputType="textPostalAddress" />
+
+
+        <EditText
+        android:id="@+id/editTextSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Senha"
+        android:textColorHint="@color/black"
+        style="@style/Text_View"
+        android:inputType="textPassword" />
+
+        <EditText
+        android:id="@+id/editTextConfirmaSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirmar senha"
+        android:textColorHint="@color/black"
+        style="@style/Text_View"
+        android:inputType="textPassword" />
+
+        <Button
+        android:id="@+id/buttonCadastrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/green_light"
+        android:textColor="@color/black"
+        android:text="Atualizar"
+        android:layout_marginTop="16dp" />
+
+        <Button
+        android:id="@+id/buttonCadastroVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Voltar para inicio"
+        android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+</ScrollView>
