@@ -30,7 +30,8 @@ public class ConsultorService {
         this.spinnerVeiculos = spinnerVeiculos;
     }
 
-
+    public ConsultorService() {
+    }
 
     public void buscarVeiculo(String cpf){
         String url = "http://186.247.89.58:8080/api/veiculos/consultar/veiculos/"+cpf   ;

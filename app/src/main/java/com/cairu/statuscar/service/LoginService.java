@@ -66,6 +66,8 @@ public class LoginService {
 
                         switch (userRank){
                             case 0:
+
+
                                 Intent intentUsuarioActivity = new Intent(context, UsuarioActivity.class);
                                 System.out.println(jsonCpf);
                                 intentUsuarioActivity.putExtra("cpf", jsonCpf);

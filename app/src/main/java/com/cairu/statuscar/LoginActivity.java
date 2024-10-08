@@ -25,8 +25,6 @@ public class LoginActivity extends AppCompatActivity {
     private LoginService loginService;
     private TextView textViwRecuperarSenha;
     private Button buttonCadastro;
-    private NotificationHelper notificationHelper ;
-    private static final String CHANNEL_ID = "statuscar_channel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

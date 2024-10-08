@@ -17,11 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cairu.statuscar.adapter.VeiculoAdapter;
 import com.cairu.statuscar.model.VeiculoModel;
+import com.cairu.statuscar.service.ConsultorService;
 import com.cairu.statuscar.service.NotificationHelper;
 import com.cairu.statuscar.service.NotificationService;
 import com.google.gson.Gson;
@@ -42,8 +44,10 @@ public class UsuarioActivity extends AppCompatActivity {
     private VeiculosActivity veiculosActivity;
     private VeiculoAdapter veiculoAdapter;
     private List<VeiculoModel> veiculoList;
+    private VeiculoModel veiculo = new VeiculoModel();
     private NotificationService notificationService;
     private static final int REQUEST_CODE = 100;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,25 +55,27 @@ public class UsuarioActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_tela_inicial_cliente);
 
-        int userId = getIntent().getIntExtra("userId",-1);
-        int userRank = getIntent().getIntExtra("userRank",-1);
+        int userId = getIntent().getIntExtra("userId", -1);
+        int userRank = getIntent().getIntExtra("userRank", -1);
         String userCpf = getIntent().getStringExtra("cpf");
-        System.out.println("cpf do usuario: "+userCpf);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQUEST_CODE);
+                return;
             }
         }
+        //Logica  para verificar se existe notificação pendente
         notificationService = new NotificationService(this);
-        notificationService.enviarNotificao("Ford ka", "Aguardando Chegada");
-        System.out.println("ID: " +userId);
+        notificationService.verificarNotificacao(userCpf);
         recyclerViewVeiculos = findViewById(R.id.recyclerViewVeiculosRegistred);
-                recyclerViewVeiculos.setLayoutManager(new LinearLayoutManager(this));
-
+        recyclerViewVeiculos.setLayoutManager(new LinearLayoutManager(this));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                recyclerViewVeiculos.getContext(),
+                ((LinearLayoutManager) recyclerViewVeiculos.getLayoutManager()).getOrientation()
+        );
+        recyclerViewVeiculos.addItemDecoration(dividerItemDecoration);
         getVeiculos(userCpf);
     }
-
-
 
 
     private void getVeiculos(String cpf) {
@@ -87,10 +93,9 @@ public class UsuarioActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String jsonData = response.body().string();
-                    Log.d("UsuarioActivity", "Resposta da API: " + jsonData);
-
                     Gson gson = new Gson();
-                    Type listType = new TypeToken<List<VeiculoModel>>() {}.getType();
+                    Type listType = new TypeToken<List<VeiculoModel>>() {
+                    }.getType();
                     veiculoList = gson.fromJson(jsonData, listType);
 
                     runOnUiThread(() -> {
