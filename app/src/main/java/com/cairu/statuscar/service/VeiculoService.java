@@ -9,6 +9,7 @@ import com.cairu.statuscar.VeiculosActivity;
 import android.content.Context;
 
 import java.io.IOException;
+import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -24,6 +25,8 @@ public class VeiculoService {
     public VeiculoService() {
         cliente = new OkHttpClient();
     }
+
+
 
     public void deletarVeiculo(String placa){
         String url = "http://localhost:8080/api/veiculos/deletar/"+placa;
@@ -50,8 +53,8 @@ public class VeiculoService {
         });
     }
 
-    public void cadastrarVeiculos(int clienteID, String modelo, String placa,String marca, int ano, Context context){
-        String url = "http://186.247.89.58:8080/api/veiculos/addveiculo";
+    public void cadastrarVeiculos(int clienteID, String modelo, String placa, String marca, int ano, String status, Date dateFinal, Context context){
+        String url = "http://186.247.89.58:8080/api/veiculos/addveiculo/"+status;
         String json = criarJson(clienteID, modelo, placa, marca, ano);
         System.out.println(json);
         RequestBody requestBody = RequestBody.create(json, JSON);

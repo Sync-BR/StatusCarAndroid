@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
 
     <application
         android:allowBackup="true"
@@ -18,10 +20,16 @@
         android:theme="@style/Theme.StatusCar"
         tools:targetApi="31">
         <activity
+            android:name=".ConsultorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StatusActivity"
+            android:exported="false" />
+        <activity
             android:name=".VeiculosActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,11 +44,9 @@
             android:name=".CadastroActivity"
             android:exported="true" />
         <activity android:name=".UsuarioActivity" />
-        <activity android:name=".ConsultorActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        </activity>
-        <activity android:name="com.cairu.statuscar.DeleteVeiculosActivity" />
-
+        <activity
+            android:name=".DeleteVeiculosActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
 
     </application>
 

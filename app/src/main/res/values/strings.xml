@@ -1,4 +1,37 @@
 <resources>
     <string name="app_name">StatusCar</string>
-    <string name="adicionar_ve_culo">Adicionar Veículo</string>
+    <string name="adicionar_veiculo">Adicionar Veículo</string>
+    <string name="remover_veiculo">Remover Veículo</string>
+    <string name="alterar_status">Alterar Status e Previsão</string>
+    <string name="modelo_placa">Modelo Veículo / Placa</string>
+    <string name="btn_perfil">Perfil</string>
+    <string name="data_status_update">DATA</string>
+    <string name="hora_status_update">HORÁRIO</string>
+    <string name="buscar_veiculo">Buscar Veículo</string>
+    <string name="pagina_inicial">Página Inicial</string>
+    <string name="voltar_pagina_incial">Voltar a Pagina Inicial</string>
+    <string name="cpf">CPF</string>
+    <string name="novo_usuario">Crie um novo usuário</string>
+    <string name="nome_new">Nome</string>
+    <string name="cpf_new">CPF</string>
+    <string name="telefone_new">Telefone</string>
+    <string name="e_mail_new">E-mail</string>
+    <string name="endereco_new">Endereço</string>
+    <string name="senha_new">Senha</string>
+    <string name="confirmar_senha_new">Confirmar senha</string>
+    <string name="cadastrar_user">Cadastrar</string>
+    <string name="voltar_para_inicio_user">Voltar para início</string>
+    <string name="cadastrar_usuario">Cadastrar Usuário</string>
+    <string name="btn_cadastrar_usuario">Cadastrar Usuário</string>
+    <string-array name="status_array">
+        <item>Aguardando chegada</item>
+        <item>Ausente</item>
+        <item>Atrasado</item>
+        <item>Em Triagem</item>
+        <item>Em Manutenção</item>
+        <item>Em Lavagem</item>
+        <item>Em Preparação</item>
+        <item>Pronto</item>
+        <item>Entregue</item>
+    </string-array>
 </resources>

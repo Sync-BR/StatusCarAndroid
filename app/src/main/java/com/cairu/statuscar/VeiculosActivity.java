@@ -1,5 +1,6 @@
 package com.cairu.statuscar;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,28 +15,82 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.cairu.statuscar.model.ClienteModel;
+import com.cairu.statuscar.model.StatusModel;
 import com.cairu.statuscar.service.ClienteService;
 import com.cairu.statuscar.service.VeiculoService;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class VeiculosActivity extends AppCompatActivity {
     private EditText editTextCarVeiculo, editTextCarPlaca, editTextCarModelo, editTextCarAno,editTextCarStatus;
     private Button buttonCarCadastrar, buttonCarVoltar;
-    private Spinner spinnerClientes;
-    private int idSelected;
+    private Spinner spinnerClientes, spinnerStatus;
+    private int idSelected, idClienteSelected;
+    private String statusSelected;
     private Context context;
+    private EditText editTextDate;
+    private Date dateFinal;
 
 
+    @Override
+    public String toString() {
+        return "VeiculosActivity{" +
+                "editTextCarVeiculo=" + editTextCarVeiculo +
+                ", editTextCarPlaca=" + editTextCarPlaca +
+                ", editTextCarModelo=" + editTextCarModelo +
+                ", editTextCarAno=" + editTextCarAno +
+                ", editTextCarStatus=" + editTextCarStatus +
+                ", buttonCarCadastrar=" + buttonCarCadastrar +
+                ", buttonCarVoltar=" + buttonCarVoltar +
+                ", spinnerClientes=" + spinnerClientes +
+                ", spinnerStatus=" + spinnerStatus +
+                ", idSelected=" + idSelected +
+                ", context=" + context +
+                '}';
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addveiculos);
+        editTextDate = findViewById(R.id.editTextDate);
+        editTextDate.setOnClickListener(v -> {
+            // Obter a data atual
+            Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            // Criar e exibir o DatePickerDialog
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    VeiculosActivity.this,
+                    (view, selectedYear, selectedMonth, selectedDay) -> {
+                        // Atualizar o EditText com a data selecionada
+                        String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                        System.out.println(selectedDate);
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                        String formattedDate = dateFormat.format(calendar.getTime());
+                        try {
+                            dateFinal = dateFormat.parse(formattedDate) ;
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+                        editTextDate.setText(formattedDate);
+                        System.out.println(formattedDate);
+                    },
+                    year, month, day);
+            datePickerDialog.show();
+        });
+
         editTextCarVeiculo = findViewById(R.id.editTextCarVeiculo);
         editTextCarPlaca = findViewById(R.id.editTextCarPlaca);
         editTextCarModelo = findViewById(R.id.editTextCarModelo);
@@ -43,10 +98,20 @@ public class VeiculosActivity extends AppCompatActivity {
 
         buttonCarCadastrar = findViewById(R.id.buttonCarCadastrar);
         buttonCarVoltar = findViewById(R.id.buttonCarVoltar);
-
+        spinnerStatus = findViewById(R.id.spinnerStatusVeiculos);
         spinnerClientes = findViewById(R.id.spinnerClientes);
+        //Definir valores padrões no status
+        ArrayAdapter<CharSequence> Arrayadapter = ArrayAdapter.createFromResource(this,R.array.status_array, android.R.layout.simple_spinner_item);
+
+        //Especificar o layout onde deve ser usado
+        Arrayadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinnerStatus.setAdapter(Arrayadapter);
+
         ClienteService clienteService = new ClienteService(VeiculosActivity.this);
         List<ClienteModel> clienteModels = clienteService.consumirClientes();
+
+
         System.out.println(clienteModels);
         // Cria um ArrayAdapter usando o layout padrão e a lista de clientes
   
@@ -57,6 +122,7 @@ public class VeiculosActivity extends AppCompatActivity {
         );
 
         System.out.println("IDS: " +adapter.getContext());
+        System.out.println("Status selecionado " +Arrayadapter.getContext());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Define o listener para o Spinner
         spinnerClientes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -72,7 +138,20 @@ public class VeiculosActivity extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Nada a fazer
+
+            }
+        });
+
+        spinnerStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                statusSelected =  adapterView.getItemAtPosition(i).toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
         buttonCarCadastrar.setOnClickListener(v -> cadastrarVeiculo());
@@ -97,19 +176,18 @@ public class VeiculosActivity extends AppCompatActivity {
     }
     private void cadastrarVeiculo() {
         int id = idSelected;
-        System.out.println("ID CHEGANDO: " +id);
         String veiculo = editTextCarVeiculo.getText().toString();
         String placa = editTextCarPlaca.getText().toString();
         String modelo = editTextCarModelo.getText().toString();
+        String status = statusSelected;
         int ano = Integer.parseInt(editTextCarAno.getText().toString());
 
         if (veiculo.isEmpty() || placa.isEmpty() || modelo.isEmpty() || ano <= 0) {
             Toast.makeText(this, "Todos os campos devem ser preenchidos", Toast.LENGTH_SHORT).show();
             return;
         }
-        System.out.println("teste 1");
         VeiculoService veiculoService = new VeiculoService();
-        veiculoService.cadastrarVeiculos(id,veiculo,placa, modelo,ano, this);
+        veiculoService.cadastrarVeiculos(id,veiculo,placa, modelo,ano, statusSelected, dateFinal,this);
     }
 
     private void showBottomSheet() {

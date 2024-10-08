@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".VeiculosActivity">
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    tools:context=".VeiculosActivity">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/logo"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            />
+        <TextView
+            android:id="@+id/label_carro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Atualizar Veículo"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:paddingBottom="2dp"/>
+
+        <EditText
+        android:id="@+id/editTextCarVeiculo"
+        style="@style/Text_View"
+        android:layout_width="359dp"
+        android:layout_height="wrap_content"
+        android:hint="Nome do veículo"
+            android:textColorHint="@color/black"
+        android:inputType="textPersonName" />
+
+        <EditText
+        android:id="@+id/editTextCarPlaca"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Text_View"
+        android:hint="Placa do veículo"
+            android:textColorHint="@color/black"
+        android:inputType="text" />
+
+        <EditText
+        android:id="@+id/editTextCarModelo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Text_View"
+        android:hint="Modelo do veículo"
+            android:textColorHint="@color/black"
+        android:inputType="text" />
+
+        <EditText
+        android:id="@+id/editTextCarAno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Text_View"
+        android:hint="Ano do carro"
+            android:textColorHint="@color/black"
+        android:inputType="number" />
+
+        <Spinner
+        android:id="@+id/spinnerStatusVeiculos"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+        style="@style/SpinnerGreyStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:hint="Selecionar data"
+            android:layout_marginStart="20dp"
+        android:focusable="false"
+        android:clickable="true" />
+
+        <Button
+        android:id="@+id/buttonCarAtualizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Button_Update"
+        android:backgroundTint="@color/green"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Atualizar veículos"
+        android:textColor="@color/black"/>
+
+        <Button
+        android:id="@+id/buttonCarVoltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Button_Update"
+        android:layout_marginTop="16dp"
+        android:text="Voltar para início"
+        android:backgroundTint="@color/green_light"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+</ScrollView>

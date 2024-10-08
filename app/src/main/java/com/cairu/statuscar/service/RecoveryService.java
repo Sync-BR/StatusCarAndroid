@@ -1,11 +1,8 @@
 package com.cairu.statuscar.service;
 import android.content.Context;
 import android.widget.Toast;
-
 import com.cairu.statuscar.RecoveryActivity;
-
 import java.io.IOException;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;

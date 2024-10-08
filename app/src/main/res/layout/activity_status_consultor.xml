@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".VeiculosActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/status_consultor"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center_horizontal">
+
+        <!-- ImageView para Logo no topo -->
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/logo"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <!-- Título Modelo e Placa do carro -->
+        <TextView
+            android:id="@+id/label_carro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Informações do Veículo Pesquisado"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginBottom="5dp"
+            android:paddingBottom="2dp" />
+
+        <TextView
+            android:id="@+id/text_carroStatus"
+            style="@style/Text_View"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:padding="8dp"
+            android:text="Modelo: Palio Fire\nPlaca: HAB0783\nPrevisão: 01/01/2024 00:00\nStatus Atual: Aguardando chegada"
+            android:textColorHint="@color/black"
+            android:textStyle="bold" />
+
+        <!-- Título para Status -->
+        <TextView
+            android:id="@+id/label_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Novo Status"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingBottom="2dp" />
+
+        <!-- Spinner para Status -->
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:id="@+id/spinner_status_update"
+            style="@style/SpinnerGreyStyle"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Título para Data -->
+        <TextView
+            android:id="@+id/label_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Data de Previsão"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:paddingBottom="2dp" />
+
+        <!-- Campo para Data -->
+        <EditText
+            android:id="@+id/editTextDateUpdate"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            style="@style/Text_View"
+            android:hint="Selecionar data final"
+            android:textColorHint="@color/black"
+            android:focusable="false"
+            android:clickable="true" />
+        <!-- Botão para atualizar a Data -->
+
+
+        <!-- Título para Hora -->
+
+        <!-- Botão para Alterar o Status -->
+        <Button
+            android:id="@+id/btn_alterarStatus"
+            style="@style/Button_Update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/alterar_status"
+            android:textColor="@color/green_light"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"/>
+
+    </LinearLayout>
+
+</ScrollView>
