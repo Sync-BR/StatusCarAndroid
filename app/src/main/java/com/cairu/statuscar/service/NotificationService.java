@@ -145,7 +145,7 @@ public class NotificationService extends AppCompatActivity {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CANAL_ID)
                 .setSmallIcon(android.R.drawable.ic_dialog_info)
                 .setContentTitle("Status do veiculo alterado")
-                .setContentText("O Status do veiculo "+veiculo+ " Foi alterado para " +status)
+                .setContentText("O Status do veiculo "+veiculo+ " Foi alterado ")
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
@@ -180,13 +180,13 @@ public class NotificationService extends AppCompatActivity {
                     if (jsonData != null && !jsonData.isEmpty()) {
                         int id = Integer.parseInt(jsonData.trim());
                         if (id > 0) {
-                            enviarNotificao("Pendente", "Veiculo alterado");
+                            enviarNotificao("", "Veiculo alterado");
                         }
                     } else {
                         runOnUiThread(() -> Toast.makeText(NotificationService.this, "Nenhuma notificação encontrada", Toast.LENGTH_SHORT).show());
                     }
                 } else {
-                 //   runOnUiThread(() -> Toast.makeText(NotificationService.this, "Erro na resposta da API", Toast.LENGTH_SHORT).show());
+                  runOnUiThread(() -> Toast.makeText(NotificationService.this, "Erro na resposta da API", Toast.LENGTH_SHORT).show());
                 }
             }
         });

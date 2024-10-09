@@ -50,6 +50,14 @@ public class StatusActivity extends AppCompatActivity implements StatusCallback 
     private Date dateFinal;
     private Button btnAtualizar;
 
+    public int getIdStatus() {
+        return idStatus;
+    }
+
+    public int getIdVeiculo() {
+        return idVeiculo;
+    }
+
     @Override
     public String toString() {
         return "StatusActivity{" +
@@ -80,6 +88,7 @@ public class StatusActivity extends AppCompatActivity implements StatusCallback 
         String statusAtual = intent.getStringExtra("statusAtual");
         this.idStatus = intent.getIntExtra("idStatus", -1);
         this.idVeiculo = intent.getIntExtra("idDoVeiculo", -1);
+        System.out.println("id Status " +idStatus+ " id veiculo " +idVeiculo);
         statusService = new StatusService();
         editTextDate = findViewById(R.id.editTextDateUpdate);
         editTextDate.setOnClickListener(v -> {
@@ -136,17 +145,21 @@ public class StatusActivity extends AppCompatActivity implements StatusCallback 
                                     // Obtém o status selecionado no Spinner
                                     StatusModel status = new StatusModel();
                                     status.setId(idStatus);
+                                    System.out.println("Log status" +status);
+                                    System.out.println("Log do Get" +getIdStatus());
                                     status.setStatus(spinner.getSelectedItem().toString());
                                     // Chama o método para atualizar o status
                                     statusService.updateStatus(idStatus, status);
                                     Toast.makeText(StatusActivity.this, "Status atualizado com sucesso!", Toast.LENGTH_SHORT).show();
                                     NotificationService notificationService = new NotificationService(StatusActivity.this);
                                     NotificacaoModel notificacaoModel = new NotificacaoModel();
-                                    notificacaoModel.setId_Veiculo(idVeiculo);
-                                    notificacaoModel.setId_Status(idVeiculo);
+                                    notificacaoModel.setId_Veiculo(getIdVeiculo());
+                                    notificacaoModel.setId_Status(getIdStatus());
                                     notificacaoModel.setDescricao("Seu status do veiculo foi alterado");
-                                    notificacaoModel.setDescricao("O Veiculo " + modelo + "Foi alterado para o status" + status.getStatus());
-                                    notificationService.consultarNotificacoesPorPlaca(placa);
+                        //            notificacaoModel.setDescricao("O Veiculo " + modelo + "Foi alterado para o status" + status.getStatus());
+                                    notificationService.criarNotificacao(notificacaoModel);
+                        //            notificationService.consultarNotificacoesPorPlaca(placa);
+                                    System.out.println("notificacaoModel: " +notificacaoModel);
 
                                 } else {
                                     System.out.println("Erro: veiculoSelecionado é null");
