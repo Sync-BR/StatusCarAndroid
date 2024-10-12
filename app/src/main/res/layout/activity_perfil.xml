@@ -2,16 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".UsuarioActivity">
+    android:background="@drawable/background">
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/logo"
@@ -23,7 +20,7 @@
             android:layout_marginTop="10dp"/>
 
         <TextView
-            android:id="@+id/label_cadastro"
+            android:id="@+id/label_perfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Perfil"
@@ -31,89 +28,64 @@
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="24dp"/>
 
         <EditText
-        android:id="@+id/editTextNome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Text_View"
-        android:hint="Nome"
-        android:textColorHint="@color/black"
-        android:inputType="textPersonName" />
+            android:id="@+id/editTextNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nome"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
 
         <EditText
-        android:id="@+id/editTextCpf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Text_View"
-        android:hint="CPF"
-        android:textColorHint="@color/black"
-        android:inputType="number" />
+            android:id="@+id/editTextCpf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="true"
+            android:enabled="true"
+            android:hint="CPF"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
+            />
 
         <EditText
-        android:id="@+id/editTextTelefone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Text_View"
-        android:hint="Telefone"
-        android:textColorHint="@color/black"
-        android:inputType="phone" />
+            android:id="@+id/editTextTelefone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Telefone"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:inputType="phone"/>
 
         <EditText
-        android:id="@+id/editTextEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="E-mail"
-        android:textColorHint="@color/black"
-        style="@style/Text_View"
-        android:inputType="textEmailAddress" />
+            android:id="@+id/editTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="E-mail"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:inputType="textEmailAddress"/>
 
         <EditText
-        android:id="@+id/editTextEndereco"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Endereço"
-        android:textColorHint="@color/black"
-        style="@style/Text_View"
-        android:inputType="textPostalAddress" />
-
-
-        <EditText
-        android:id="@+id/editTextSenha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Senha"
-        android:textColorHint="@color/black"
-        style="@style/Text_View"
-        android:inputType="textPassword" />
-
-        <EditText
-        android:id="@+id/editTextConfirmaSenha"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Confirmar senha"
-        android:textColorHint="@color/black"
-        style="@style/Text_View"
-        android:inputType="textPassword" />
+            android:id="@+id/editTextEndereco"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Endereço"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
 
         <Button
-        android:id="@+id/buttonCadastrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:backgroundTint="@color/green_light"
-        android:textColor="@color/black"
-        android:text="Atualizar"
-        android:layout_marginTop="16dp" />
-
-        <Button
-        android:id="@+id/buttonCadastroVoltar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Voltar para inicio"
-        android:layout_marginTop="16dp" />
-
+            android:id="@+id/buttonSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Salvar"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/green_light"
+            android:layout_marginTop="24dp"/>
     </LinearLayout>
 </ScrollView>

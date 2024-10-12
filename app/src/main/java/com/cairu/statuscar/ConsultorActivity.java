@@ -164,7 +164,7 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
                         intent.putExtra("idDoVeiculo", veiculoSelecionado.getId());
                         intent.putExtra("modelo", veiculoSelecionado.getModelo());
                         intent.putExtra("placa", veiculoSelecionado.getPlaca());
-                        intent.putExtra("previsao", status.getDataFim().toString());  // Previsão do status
+                        intent.putExtra("previsao", status.getDataFim().toString()); // Previsão do status
                         intent.putExtra("statusAtual", status.getStatus());  // Status atual
                         intent.putExtra("idStatus", status.getId());
 
@@ -177,7 +177,7 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
                         return null;
                     });
 
-                    System.out.println("testa status " +futureStatus);
+                //    System.out.println("testa status " +futureStatus.get().);
                     // Verificando o valor da previsão
                     Date dataFim = state.getDataFim();
 

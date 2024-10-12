@@ -145,8 +145,6 @@ public class StatusActivity extends AppCompatActivity implements StatusCallback 
                                     // Obtém o status selecionado no Spinner
                                     StatusModel status = new StatusModel();
                                     status.setId(idStatus);
-                                    System.out.println("Log status" +status);
-                                    System.out.println("Log do Get" +getIdStatus());
                                     status.setStatus(spinner.getSelectedItem().toString());
                                     // Chama o método para atualizar o status
                                     statusService.updateStatus(idStatus, status);
@@ -156,9 +154,9 @@ public class StatusActivity extends AppCompatActivity implements StatusCallback 
                                     notificacaoModel.setId_Veiculo(getIdVeiculo());
                                     notificacaoModel.setId_Status(getIdStatus());
                                     notificacaoModel.setDescricao("Seu status do veiculo foi alterado");
-                        //            notificacaoModel.setDescricao("O Veiculo " + modelo + "Foi alterado para o status" + status.getStatus());
-                                    notificationService.criarNotificacao(notificacaoModel);
-                        //            notificationService.consultarNotificacoesPorPlaca(placa);
+                                    notificacaoModel.setDescricao("O Veiculo " + modelo + "Foi alterado para o status" + status.getStatus());
+                                  //  notificationService.criarNotificacao(notificacaoModel);
+                                    notificationService.consultarNotificacoesPorPlaca(placa, notificacaoModel);
                                     System.out.println("notificacaoModel: " +notificacaoModel);
 
                                 } else {
