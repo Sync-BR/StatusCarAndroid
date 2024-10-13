@@ -60,6 +60,33 @@ public class StatusService {
         });
     }
 
+    public CompletableFuture<VeiculoModel> buscaSpinner(int id) {
+        String url = "http://186.247.89.58:8080/api/status/find/" + id;
+        CompletableFuture<VeiculoModel> future = new CompletableFuture<>();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                future.completeExceptionally(e);
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String jsonData = response.body().string();
+                    VeiculoModel veiculoModels = new Gson().fromJson(jsonData, VeiculoModel.class);
+                    future.complete(veiculoModels);
+                } else {
+                    future.completeExceptionally(new IOException("Código inesperado: " + response.code()));
+                }
+            }
+        });
+        return future;
+    }
+
     public CompletableFuture<StatusModel> buscarStatus(int id) {
         String url = "http://186.247.89.58:8080/api/status/" + id;
         CompletableFuture<StatusModel> future = new CompletableFuture<>();

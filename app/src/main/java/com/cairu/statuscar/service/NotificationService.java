@@ -8,8 +8,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.widget.Toast;
-import java.lang.reflect.Type;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,20 +18,17 @@ import androidx.core.app.NotificationCompat;
 
 import com.cairu.statuscar.R;
 import com.cairu.statuscar.UsuarioActivity;
-import com.cairu.statuscar.adapter.VeiculoAdapter;
 import com.cairu.statuscar.model.NotificacaoModel;
-import com.cairu.statuscar.model.StatusModel;
 import com.cairu.statuscar.model.VeiculoModel;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -41,12 +39,10 @@ public class NotificationService extends AppCompatActivity {
     private Context context;
     private static final String CANAL_ID = "my_channel_id";
     private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
-    private static final int REQUEST_CODE = 100; //
 
     private OkHttpClient client = new OkHttpClient();
     private List<NotificacaoModel> notificacaoModels;
-    private List<VeiculoModel> veiculos ;
-
+    private List<VeiculoModel> veiculos;
 
     public NotificationService(Context context) {
         this.context = context;
@@ -55,17 +51,6 @@ public class NotificationService extends AppCompatActivity {
         veiculos = new ArrayList<>();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CANAL_ID, "Nome do Canal", NotificationManager.IMPORTANCE_HIGH);
-            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(channel);
-            }
-        }
-    }
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CANAL_ID, "Nome do Canal", NotificationManager.IMPORTANCE_HIGH);
@@ -75,27 +60,30 @@ public class NotificationService extends AppCompatActivity {
             }
         }
     }
-    public void consultarNotificacoesPorPlaca(String placa) {
+
+    public void consultarNotificacoesPorPlaca(String placa, NotificacaoModel notificacaoModel) {
+        System.out.println("Teste de notificação: " +notificacaoModel);
         String url = "http://186.247.89.58:8080/notification/consultar/" + placa;
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-        client.newCall(request).enqueue(new okhttp3.Callback() {
+        Request request = new Request.Builder().url(url).build();
+        client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
+            public void onFailure(Call call, IOException e) {
                 // Lida com falhas de conexão ou requisição
                 e.printStackTrace();
             }
 
             @Override
-            public void onResponse(okhttp3.Call call, Response response) throws IOException {
+            public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String jsonResponse = response.body().string();
-                    Gson gson = new Gson();
-                    NotificacaoModel notification = gson.fromJson(jsonResponse, NotificacaoModel.class);
-                    NotificacaoModel nt = notification;
-                    criarNotificacao(nt);  // Passar um objeto ao invés de uma lista
+                    NotificacaoModel notification = new Gson().fromJson(jsonResponse, NotificacaoModel.class);
+                    if (notification.getId_Veiculo() == 0) {
+                        criarNotificacao(notificacaoModel);  // Passar um objeto ao invés de uma lista
 
+                    } else {
+                           // deleteNotification(notificacaoModel.getId_Notification());
+
+                    }
                 } else {
                     System.out.println("Erro ao consultar notificações: " + response.code());
                 }
@@ -103,26 +91,50 @@ public class NotificationService extends AppCompatActivity {
         });
     }
 
-
-    public void criarNotificacao(NotificacaoModel notificacaoModel) {
-        System.out.println("criarNotificacao "+notificacaoModel);
-        notificacaoModel.setData(null);
-        // Converte o objeto NotificationModel em JSON
-        String url = "http://186.247.89.58:8080/notification/enviar" ;
-
-        String json = new Gson().toJson(notificacaoModel);
-        System.out.println("json " +json);
-        RequestBody body = RequestBody.create(json, JSON);
-
+    public boolean deleteNotification(int id) {
+        String url = "http://186.247.89.58:8080/notification/delete/by/" + id;
         Request request = new Request.Builder()
                 .url(url)
-                .post(body)
+                .delete() // Método DELETE
                 .build();
 
-        client.newCall(request).enqueue(new okhttp3.Callback() {
+        try {
+            // Chamada síncrona
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                // Notificação deletada com sucesso
+                showToast("Notificação deletada com sucesso");
+                return true; // Sucesso
+            } else {
+                // Falha ao deletar a notificação
+                showToast("Falha ao deletar a notificação");
+                return false; // Falha
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            showToast("Erro de rede");
+            return false; // Falha devido a erro de rede
+        }
+    }
+
+    private void showToast(final String message) {
+        // Verifique se estamos na UI thread
+        new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    public void criarNotificacao(NotificacaoModel notificacaoModel) {
+        notificacaoModel.setDescricao("O Status do seu veiculo foi atualizado!");
+        String url = "http://186.247.89.58:8080/notification/enviar";
+        String json = new Gson().toJson(notificacaoModel);
+        RequestBody body = RequestBody.create(json, JSON);
+
+        Request request = new Request.Builder().url(url).post(body).build();
+
+        client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                // Lida com a falha
                 e.printStackTrace();
             }
 
@@ -132,45 +144,60 @@ public class NotificationService extends AppCompatActivity {
                     System.out.println("Notificação enviada com sucesso: " + response.code());
                 } else {
                     System.out.println("Erro ao enviar notificação: " + response.code());
+                    System.out.println("Erro detalhes: " + response.body().string()); // Log do corpo da resposta
                 }
             }
         });
     }
-    public void enviarNotificao(String status, String veiculo){
 
-        System.out.println("Enviando notificação para o veículo: " + veiculo);
+    public void enviarNotificao(String status, String veiculo, int statusID) {
+        System.out.println("statusID" +statusID);
         Intent intent = new Intent(context, UsuarioActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CANAL_ID)
                 .setSmallIcon(android.R.drawable.ic_dialog_info)
-                .setContentTitle("Status do veiculo alterado")
-                .setContentText("O Status do veiculo "+veiculo+ " Foi alterado para " +status)
+                .setContentTitle("Status do veículo alterado")
+                .setContentText("O Status do veículo " + veiculo + " foi alterado")
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        System.out.println(notificationManager);
-        if (notificationManager != null) {
-       //     notificationManager.notify(4, builder.build());
-            notificationManager.notify((int) System.currentTimeMillis(), builder.build()); // Gera um ID único
 
+
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            int notificationId = (int) System.currentTimeMillis(); // Gera um ID único
+            notificationManager.notify(notificationId, builder.build());
+
+            // Agendar a remoção da notificação após 10 segundos (10000 ms)
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                StatusService statusService = new StatusService();
+                try {
+                    int statusRetornado = statusService.buscarStatus(statusID).get().getId(); // Bloqueia até o retorno do ID
+                    System.out.println("Status ID retornado: " + statusRetornado);
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println("Busca status " +statusService.buscarStatus(statusID));
+            }, 10000);
         }
     }
 
-
-    public boolean verificarNotificacao(String cpf) {
-        System.out.println(cpf);
-        OkHttpClient client = new OkHttpClient();
+    public void verificarNotificacao(String cpf, NotificationCallback callback) {
         String url = "http://186.247.89.58:8080/notification/consultarID/" + cpf;
         Request request = new Request.Builder().url(url).build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                // Aqui, você deve usar um Contexto válido. Como agora é um Service, use 'NotificationService.this'.
-                Toast.makeText(NotificationService.this, "Falha ao buscar dados", Toast.LENGTH_SHORT).show();
+                runOnUiThread(() -> {
+                    Toast.makeText(NotificationService.this, "Falha ao buscar dados", Toast.LENGTH_SHORT).show();
+                    callback.onResult(false); // Chama o callback com false
+                });
             }
 
             @Override
@@ -180,19 +207,26 @@ public class NotificationService extends AppCompatActivity {
                     if (jsonData != null && !jsonData.isEmpty()) {
                         int id = Integer.parseInt(jsonData.trim());
                         if (id > 0) {
-                            enviarNotificao("Pendente", "Veiculo alterado");
+                            enviarNotificao("", "Veículo alterado", id);
+                            callback.onResult(true); // Chama o callback com true
                         }
                     } else {
-                        runOnUiThread(() -> Toast.makeText(NotificationService.this, "Nenhuma notificação encontrada", Toast.LENGTH_SHORT).show());
+                        //       Toast.makeText(NotificationService.this, "Nenhuma notificação encontrada", Toast.LENGTH_SHORT).show();
+//                        runOnUiThread(() -> {
+//                            callback.onResult(false); // Chama o callback com false
+//                        });
                     }
                 } else {
-                 //   runOnUiThread(() -> Toast.makeText(NotificationService.this, "Erro na resposta da API", Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> {
+//                        Toast.makeText(NotificationService.this, "Erro na resposta da API", Toast.LENGTH_SHORT).show();
+                        callback.onResult(false); // Chama o callback com false
+                    });
                 }
             }
         });
-        return false; // O retorno do método pode não ser útil aqui devido à natureza assíncrona
     }
 
-
-
+    public interface NotificationCallback {
+        void onResult(boolean success);
+    }
 }

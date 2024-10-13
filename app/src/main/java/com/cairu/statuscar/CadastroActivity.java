@@ -68,6 +68,13 @@ public class CadastroActivity extends AppCompatActivity {
                         } else {
                             System.out.println("Cair aqui");
                             cadastroService.cadastrarUsuario(nome, cpf, telefone, email, endereco, senha, CadastroActivity.this);
+                            editTextNome.setText("");
+                            editTextCpf.setText("");
+                            editTextTelefone.setText("");
+                            editTextEmail.setText("");
+                            editTextEndereco.setText("");
+                            editTextSenha.setText("");
+                            editTextConfirmSenha.setText("");
                         }
                     } else {
                         Toast.makeText(CadastroActivity.this, "Senhas diferentes", Toast.LENGTH_SHORT).show();

@@ -4,10 +4,13 @@ package com.cairu.statuscar;
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import android.Manifest;
 
@@ -22,6 +25,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cairu.statuscar.adapter.VeiculoAdapter;
+import com.cairu.statuscar.dto.veiculoStatusList;
+import com.cairu.statuscar.model.ClienteModel;
 import com.cairu.statuscar.model.VeiculoModel;
 import com.cairu.statuscar.service.ConsultorService;
 import com.cairu.statuscar.service.NotificationHelper;
@@ -44,6 +49,7 @@ public class UsuarioActivity extends AppCompatActivity {
     private VeiculosActivity veiculosActivity;
     private VeiculoAdapter veiculoAdapter;
     private List<VeiculoModel> veiculoList;
+    private Button buttonUpdate;
     private VeiculoModel veiculo = new VeiculoModel();
     private NotificationService notificationService;
     private static final int REQUEST_CODE = 100;
@@ -54,6 +60,7 @@ public class UsuarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_tela_inicial_cliente);
+        buttonUpdate = findViewById(R.id.btn_perfil);
 
         int userId = getIntent().getIntExtra("userId", -1);
         int userRank = getIntent().getIntExtra("userRank", -1);
@@ -64,9 +71,56 @@ public class UsuarioActivity extends AppCompatActivity {
                 return;
             }
         }
-        //Logica  para verificar se existe notificação pendente
-        notificationService = new NotificationService(this);
-        notificationService.verificarNotificacao(userCpf);
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getClienteByID(userCpf, new ClienteCallback() {
+                    @Override
+                    public void onClienteReceived(ClienteModel cliente) {
+                        // Use os dados do cliente aqui
+                        Intent intent = new Intent(UsuarioActivity.this, PerfilActivity.class);
+                        intent.putExtra("id" ,cliente.getId());
+                        System.out.println("id passado: " +cliente.getId());
+                        intent.putExtra("nome", cliente.getNome());
+                        intent.putExtra("cpf", cliente.getCpf());
+                        intent.putExtra("telefone", cliente.getTelefone());
+                        intent.putExtra("email", cliente.getEmail());
+                        intent.putExtra("endereco", cliente.getEndereco());
+                        intent.putExtra("senha", cliente.getSenha());
+
+
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+                        // Lide com o erro aqui, se necessário
+                    }
+                });
+            }
+        });
+
+
+        NotificationService notificationService = new NotificationService(this);
+        notificationService.verificarNotificacao(userCpf, new NotificationService.NotificationCallback() {
+            @Override
+            public void onResult(final boolean success) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (success) {
+                            // Notificação foi encontrada e enviada com sucesso
+                            Toast.makeText(UsuarioActivity.this, "Notificação verificada com sucesso!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            System.out.println("falhou");
+                            // Falha ao verificar a notificação
+                            Toast.makeText(UsuarioActivity.this, "Falha ao verificar a notificação.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
         recyclerViewVeiculos = findViewById(R.id.recyclerViewVeiculosRegistred);
         recyclerViewVeiculos.setLayoutManager(new LinearLayoutManager(this));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
@@ -75,6 +129,44 @@ public class UsuarioActivity extends AppCompatActivity {
         );
         recyclerViewVeiculos.addItemDecoration(dividerItemDecoration);
         getVeiculos(userCpf);
+        System.out.println("ID: " +userId+ " CPF: " +userCpf);
+    }
+
+    private void getClienteByID(String cpf, ClienteCallback callback) {
+        System.out.println("id: " +cpf);
+        OkHttpClient client = new OkHttpClient();
+        String url = "http://186.247.89.58:8080/api/user/consultar/" + cpf;
+        Request request = new Request.Builder().url(url).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                runOnUiThread(() -> {
+                    Toast.makeText(UsuarioActivity.this, "Falha ao buscar dados por id", Toast.LENGTH_SHORT).show();
+                    callback.onError("Falha ao buscar dados por id");
+                });
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String jsonResponse = response.body().string();
+                    Gson gson = new Gson();
+
+                    // Desserializa a resposta JSON para um objeto ClienteModel
+                    ClienteModel cliente = gson.fromJson(jsonResponse, ClienteModel.class);
+
+                    // Chamando o callback com os dados do cliente
+                    runOnUiThread(() -> callback.onClienteReceived(cliente));
+                } else {
+                    runOnUiThread(() -> {
+                        Toast.makeText(UsuarioActivity.this, "Erro ao buscar dados: " + response.code(), Toast.LENGTH_SHORT).show();
+                        callback.onError("Erro ao buscar dados: " + response.code());
+                    });
+                }
+            }
+        });
     }
 
 
@@ -93,14 +185,16 @@ public class UsuarioActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String jsonData = response.body().string();
+                    System.out.println("jsonData: " + jsonData);
+
+                    // Ajuste para deserializar a lista de veiculoStatusList
                     Gson gson = new Gson();
-                    Type listType = new TypeToken<List<VeiculoModel>>() {
-                    }.getType();
-                    veiculoList = gson.fromJson(jsonData, listType);
+                    Type listType = new TypeToken<List<veiculoStatusList>>() {}.getType(); // Verifique se é veiculoStatusList
+                    List<veiculoStatusList> veiculoStatusList = gson.fromJson(jsonData, listType); // Altere para veiculoStatusList
 
                     runOnUiThread(() -> {
-                        if (veiculoList != null && !veiculoList.isEmpty()) {
-                            veiculoAdapter = new VeiculoAdapter(veiculoList);
+                        if (veiculoStatusList != null && !veiculoStatusList.isEmpty()) {
+                            veiculoAdapter = new VeiculoAdapter(veiculoStatusList); // Certifique-se de que o adaptador aceita veiculoStatusList
                             recyclerViewVeiculos.setAdapter(veiculoAdapter);
                         } else {
                             Toast.makeText(UsuarioActivity.this, "Nenhum veículo encontrado", Toast.LENGTH_SHORT).show();
@@ -113,4 +207,11 @@ public class UsuarioActivity extends AppCompatActivity {
         });
     }
 
+
+
+
+}
+ interface ClienteCallback {
+    void onClienteReceived(ClienteModel cliente);
+    void onError(String errorMessage);
 }

@@ -8,6 +8,7 @@
         android:id="@+id/textViewModelo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
         android:text="Modelo"
         android:textSize="18sp" />
 
@@ -15,12 +16,14 @@
         android:id="@+id/textViewPlaca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
         android:text="Placa"
         android:textSize="16sp" />
     <TextView
         android:id="@+id/textViewStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
         android:text="Status"
         android:textSize="16sp" />
 </LinearLayout>

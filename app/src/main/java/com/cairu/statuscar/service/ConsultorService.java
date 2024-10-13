@@ -34,7 +34,7 @@ public class ConsultorService {
     }
 
     public void buscarVeiculo(String cpf){
-        String url = "http://186.247.89.58:8080/api/veiculos/consultar/veiculos/"+cpf   ;
+        String url = "http://186.247.89.58:8080/api/veiculos/consultar/veiculos/cpf/"+cpf   ;
         Request request = new Request.Builder()
                 .url(url)
                 .build();

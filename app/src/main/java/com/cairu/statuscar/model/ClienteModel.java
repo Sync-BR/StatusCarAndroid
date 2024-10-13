@@ -13,19 +13,23 @@ public class ClienteModel {
     public ClienteModel() {
     }
 
-    @Override
-    public String toString() {
-        return "ClienteModel{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", email='" + email + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", login='" + login + '\'' +
-                ", senha='" + senha + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "ClienteModel{" +
+//                "id=" + id +
+//                ", nome='" + nome + '\'' +
+//                ", cpf='" + cpf + '\'' +
+//                ", telefone='" + telefone + '\'' +
+//                ", email='" + email + '\'' +
+//                ", endereco='" + endereco + '\'' +
+//                ", login='" + login + '\'' +
+//                ", senha='" + senha + '\'' +
+//                '}';
+//    }
+@Override
+public String toString() {
+    return nome; // Retorna apenas o nome do cliente
+}
 
     public int getId() {
         return id;

@@ -47,7 +47,7 @@
         <activity
             android:name=".DeleteVeiculosActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
-
+        <activity android:name=".PerfilActivity" />
     </application>
 
 </manifest>
