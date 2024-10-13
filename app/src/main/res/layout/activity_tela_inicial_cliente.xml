@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
     android:gravity="center_horizontal"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    tools:context=".UsuarioActivity">
 
     <!-- Título da Página -->
     <LinearLayout
@@ -68,15 +70,18 @@
         android:layout_height="48dp"
         android:layout_marginBottom="15dp"
         android:padding="10dp"
-        style="@style/SpinnerGreyStyle"/>
+        android:background="@drawable/spinner_background"
+        android:popupBackground="@color/white"
+        style="@style/SpinnerCustomStyle"
+    />
 
     <Button
-        android:id="@+id/btn_buscar"
+        android:id="@+id/btn_visualizar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/green"
         android:textColor="@color/white"
-        android:text="Buscar"/>
+        android:text="Visualizar"/>
 
 </LinearLayout>

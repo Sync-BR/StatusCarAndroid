@@ -108,7 +108,7 @@ public class VeiculosActivity extends AppCompatActivity {
 
         spinnerStatus.setAdapter(Arrayadapter);
 
-        ClienteService clienteService = new ClienteService(VeiculosActivity.this);
+        ClienteService clienteService = new ClienteService(VeiculosActivity.this, spinnerClientes);
         List<ClienteModel> clienteModels = clienteService.consumirClientes();
 
 

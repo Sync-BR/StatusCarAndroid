@@ -4,6 +4,7 @@ package com.cairu.statuscar;
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -21,19 +22,16 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.cairu.statuscar.adapter.VeiculoAdapter;
 import com.cairu.statuscar.dto.veiculoStatusList;
 import com.cairu.statuscar.model.ClienteModel;
 import com.cairu.statuscar.model.VeiculoModel;
+import com.cairu.statuscar.service.ClienteService;
 import com.cairu.statuscar.service.ConsultorService;
 import com.cairu.statuscar.service.NotificationHelper;
 import com.cairu.statuscar.service.NotificationService;
+import com.cairu.statuscar.service.StatusService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -48,11 +46,14 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class UsuarioActivity extends AppCompatActivity {
+    private OkHttpClient client = new OkHttpClient();
+    private Context context;
     private VeiculoAdapter veiculoAdapter;
+    private ClienteService clienteService;
     private Spinner spinnerVeiculos;
     private List<VeiculoModel> veiculoList;
     private Button buttonUpdate;
-    private Button buttonBuscar;
+    private Button buttonVisualizar;
     private VeiculoModel veiculoSelecionado = new VeiculoModel();
     private NotificationService notificationService;
     private static final int REQUEST_CODE = 100;
@@ -64,11 +65,13 @@ public class UsuarioActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_tela_inicial_cliente);
         buttonUpdate = findViewById(R.id.btn_perfil);
-        buttonBuscar = findViewById(R.id.btn_buscar);
+        buttonVisualizar = findViewById(R.id.btn_visualizar);
         spinnerVeiculos = findViewById(R.id.spinnerVeiculos); // Spinner para exibir veículos
+        clienteService = new ClienteService(this, spinnerVeiculos);
 
-        int userId = getIntent().getIntExtra("userId", -1);
-        int tipo_usu = getIntent().getIntExtra("tipo_usu", -1);
+
+        //int userId = getIntent().getIntExtra("userId", -1);
+        //int tipo_usu = getIntent().getIntExtra("tipo_usu", -1);
         String userCpf = getIntent().getStringExtra("cpf");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -78,18 +81,6 @@ public class UsuarioActivity extends AppCompatActivity {
             }
         }
 
-        getVeiculos(userCpf);
-
-        // Define o listener do botão "Buscar"
-        buttonBuscar.setOnClickListener(v -> {
-                    if (veiculoSelecionado != null) {
-                        Intent intent = new Intent(UsuarioActivity.this, StatusActivity.class);
-                        intent.putExtra("idVeiculo", veiculoSelecionado.getId());
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(UsuarioActivity.this, "Selecione um veículo", Toast.LENGTH_SHORT).show();
-                    }
-        });
 
         //Botão Perfil
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
@@ -141,6 +132,8 @@ public class UsuarioActivity extends AppCompatActivity {
                 });
             }
         });
+
+        clienteService.buscarVeiculo(userCpf);
     }
 
     private void getClienteByID(String cpf, ClienteCallback callback) {
@@ -175,59 +168,6 @@ public class UsuarioActivity extends AppCompatActivity {
                         Toast.makeText(UsuarioActivity.this, "Erro ao buscar dados: " + response.code(), Toast.LENGTH_SHORT).show();
                         callback.onError("Erro ao buscar dados: " + response.code());
                     });
-                }
-            }
-        });
-    }
-
-
-    private void getVeiculos(String cpf) {
-        OkHttpClient client = new OkHttpClient();
-        String url = "http://186.247.89.58:8080/api/veiculos/consultar/veiculos/" + cpf;
-        Request request = new Request.Builder().url(url).build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                runOnUiThread(() -> Toast.makeText(UsuarioActivity.this, "Falha ao buscar dados", Toast.LENGTH_SHORT).show());
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    String jsonData = response.body().string();
-                    System.out.println("jsonData: " + jsonData);
-
-                    // Ajuste para deserializar a lista de veiculoStatusList
-                    Gson gson = new Gson();
-                    Type listType = new TypeToken<List<VeiculoModel>>() {}.getType();
-                    veiculoList = gson.fromJson(jsonData, listType);
-
-                    runOnUiThread(() -> {
-                        if (veiculoList != null && !veiculoList.isEmpty()) {
-                            ArrayAdapter<VeiculoModel> adapter = new ArrayAdapter<>(UsuarioActivity.this,
-                                    android.R.layout.simple_spinner_item, veiculoList);
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            spinnerVeiculos.setAdapter(adapter);
-
-                            // Define o listener para capturar o veículo selecionado
-                            spinnerVeiculos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                    veiculoSelecionado = (VeiculoModel) parent.getItemAtPosition(position);
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> parent) {
-                                    veiculoSelecionado = null;
-                                }
-                            });
-                        } else {
-                            Toast.makeText(UsuarioActivity.this, "Nenhum veículo encontrado", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else {
-                    Log.e("UsuarioActivity", "Erro na resposta da API: " + response.message());
                 }
             }
         });

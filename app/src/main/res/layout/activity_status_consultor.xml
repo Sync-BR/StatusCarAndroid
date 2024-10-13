@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="58dp"
             android:id="@+id/spinner_status_update"
-            style="@style/SpinnerGreyStyle"
+            style="@style/SpinnerCustomStyle"
             android:layout_marginBottom="10dp" />
 
         <!-- Título para Data -->

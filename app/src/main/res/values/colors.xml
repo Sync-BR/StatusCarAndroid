@@ -5,4 +5,7 @@
     <color name="green">#006400</color>
     <color name="green_light">#a4c639</color>
     <color name="red">#FF0000</color>
+    <color name="primaryTextColor">#212121</color>
+    <color name="spinnerItemBackground">#FFFFFF</color>
+    <color name="spinnerSelectedItemBackground">#FFEB3B</color>
 </resources>

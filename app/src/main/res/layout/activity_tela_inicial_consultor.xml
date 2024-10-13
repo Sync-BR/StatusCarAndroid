@@ -95,7 +95,7 @@
         android:layout_height="48dp"
         android:layout_marginBottom="15dp"
         android:padding="10dp"
-        style="@style/SpinnerGreyStyle"
+        style="@style/SpinnerCustomStyle"
         android:spinnerMode="dropdown" />
 
     <!-- Botão de Buscar -->
