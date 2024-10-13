@@ -32,14 +32,18 @@
 
         <EditText
             android:id="@+id/editTextNome"
+            style="@style/Text_View"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nome"
-            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             android:textSize="16sp"/>
 
         <EditText
             android:id="@+id/editTextCpf"
+            style="@style/Text_View"
+            android:textColorHint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:editable="true"
@@ -55,6 +59,8 @@
 
         <EditText
             android:id="@+id/editTextTelefone"
+            style="@style/Text_View"
+            android:textColorHint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Telefone"
@@ -64,6 +70,8 @@
 
         <EditText
             android:id="@+id/editTextEmail"
+            style="@style/Text_View"
+            android:textColorHint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="E-mail"
@@ -73,6 +81,8 @@
 
         <EditText
             android:id="@+id/editTextEndereco"
+            style="@style/Text_View"
+            android:textColorHint="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Endereço"
@@ -81,8 +91,9 @@
 
         <Button
             android:id="@+id/buttonSave"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:text="Salvar"
             android:textColor="@color/black"
             android:backgroundTint="@color/green_light"

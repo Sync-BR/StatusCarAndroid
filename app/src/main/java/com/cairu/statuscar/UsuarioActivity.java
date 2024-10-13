@@ -10,7 +10,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.Manifest;
 
@@ -45,12 +48,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class UsuarioActivity extends AppCompatActivity {
-    private RecyclerView recyclerViewVeiculos;
-    private VeiculosActivity veiculosActivity;
     private VeiculoAdapter veiculoAdapter;
+    private Spinner spinnerVeiculos;
     private List<VeiculoModel> veiculoList;
     private Button buttonUpdate;
-    private VeiculoModel veiculo = new VeiculoModel();
+    private Button buttonBuscar;
+    private VeiculoModel veiculoSelecionado = new VeiculoModel();
     private NotificationService notificationService;
     private static final int REQUEST_CODE = 100;
 
@@ -61,16 +64,34 @@ public class UsuarioActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_tela_inicial_cliente);
         buttonUpdate = findViewById(R.id.btn_perfil);
+        buttonBuscar = findViewById(R.id.btn_buscar);
+        spinnerVeiculos = findViewById(R.id.spinnerVeiculos); // Spinner para exibir veículos
 
         int userId = getIntent().getIntExtra("userId", -1);
-        int userRank = getIntent().getIntExtra("userRank", -1);
+        int tipo_usu = getIntent().getIntExtra("tipo_usu", -1);
         String userCpf = getIntent().getStringExtra("cpf");
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQUEST_CODE);
                 return;
             }
         }
+
+        getVeiculos(userCpf);
+
+        // Define o listener do botão "Buscar"
+        buttonBuscar.setOnClickListener(v -> {
+                    if (veiculoSelecionado != null) {
+                        Intent intent = new Intent(UsuarioActivity.this, StatusActivity.class);
+                        intent.putExtra("idVeiculo", veiculoSelecionado.getId());
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(UsuarioActivity.this, "Selecione um veículo", Toast.LENGTH_SHORT).show();
+                    }
+        });
+
+        //Botão Perfil
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,16 +141,6 @@ public class UsuarioActivity extends AppCompatActivity {
                 });
             }
         });
-
-        recyclerViewVeiculos = findViewById(R.id.recyclerViewVeiculosRegistred);
-        recyclerViewVeiculos.setLayoutManager(new LinearLayoutManager(this));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                recyclerViewVeiculos.getContext(),
-                ((LinearLayoutManager) recyclerViewVeiculos.getLayoutManager()).getOrientation()
-        );
-        recyclerViewVeiculos.addItemDecoration(dividerItemDecoration);
-        getVeiculos(userCpf);
-        System.out.println("ID: " +userId+ " CPF: " +userCpf);
     }
 
     private void getClienteByID(String cpf, ClienteCallback callback) {
@@ -189,13 +200,28 @@ public class UsuarioActivity extends AppCompatActivity {
 
                     // Ajuste para deserializar a lista de veiculoStatusList
                     Gson gson = new Gson();
-                    Type listType = new TypeToken<List<veiculoStatusList>>() {}.getType(); // Verifique se é veiculoStatusList
-                    List<veiculoStatusList> veiculoStatusList = gson.fromJson(jsonData, listType); // Altere para veiculoStatusList
+                    Type listType = new TypeToken<List<VeiculoModel>>() {}.getType();
+                    veiculoList = gson.fromJson(jsonData, listType);
 
                     runOnUiThread(() -> {
-                        if (veiculoStatusList != null && !veiculoStatusList.isEmpty()) {
-                            veiculoAdapter = new VeiculoAdapter(veiculoStatusList); // Certifique-se de que o adaptador aceita veiculoStatusList
-                            recyclerViewVeiculos.setAdapter(veiculoAdapter);
+                        if (veiculoList != null && !veiculoList.isEmpty()) {
+                            ArrayAdapter<VeiculoModel> adapter = new ArrayAdapter<>(UsuarioActivity.this,
+                                    android.R.layout.simple_spinner_item, veiculoList);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerVeiculos.setAdapter(adapter);
+
+                            // Define o listener para capturar o veículo selecionado
+                            spinnerVeiculos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    veiculoSelecionado = (VeiculoModel) parent.getItemAtPosition(position);
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+                                    veiculoSelecionado = null;
+                                }
+                            });
                         } else {
                             Toast.makeText(UsuarioActivity.this, "Nenhum veículo encontrado", Toast.LENGTH_SHORT).show();
                         }
@@ -206,10 +232,6 @@ public class UsuarioActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
 }
  interface ClienteCallback {
     void onClienteReceived(ClienteModel cliente);

@@ -200,7 +200,4 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
             }
         });
     }
-
-
-
 }

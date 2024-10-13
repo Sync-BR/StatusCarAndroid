@@ -60,15 +60,10 @@
         android:textColor="@color/white"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp" />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewVeiculosRegistred"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
-        android:padding="8dp"/>
+
     <!-- Spinner para Status -->
     <Spinner
-        android:id="@+id/spinner_status"
+        android:id="@+id/spinnerVeiculos"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginBottom="15dp"
@@ -76,13 +71,12 @@
         style="@style/SpinnerGreyStyle"/>
 
     <Button
+        android:id="@+id/btn_buscar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/green"
         android:textColor="@color/white"
         android:text="Buscar"/>
-
-
 
 </LinearLayout>
