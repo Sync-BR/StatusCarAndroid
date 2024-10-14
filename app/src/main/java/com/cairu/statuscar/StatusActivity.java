@@ -105,7 +105,7 @@ public class StatusActivity extends AppCompatActivity implements StatusCallback 
                         // Atualizar o EditText com a data selecionada
                         String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
                         System.out.println(selectedDate);
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                         String formattedDate = dateFormat.format(calendar.getTime());
                         try {
                             dateFinal = dateFormat.parse(formattedDate);
@@ -168,7 +168,6 @@ public class StatusActivity extends AppCompatActivity implements StatusCallback 
                         .show(); // Mostra o AlertDialog
             }
         });
-
     }
 
     @Override
@@ -181,6 +180,11 @@ public class StatusActivity extends AppCompatActivity implements StatusCallback 
     public void onFailure(IOException e) {
         // Aqui você lida com a falha
         System.out.println("Erro ao buscar status: " + e.getMessage());
+    }
+
+    @Override
+    public void onError(String message) {
+        System.out.println("Erro ao buscar status");
     }
 
     private void atualizarSpinner(List<VeiculoModel> veiculos) {

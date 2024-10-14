@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -30,7 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 
-public class ConsultorActivity  extends AppCompatActivity implements StatusCallback {
+public class ConsultorActivity extends AppCompatActivity implements StatusCallback {
     private Button btnAdicionarVeiculo;
     private Button buttonCadastro;
     private EditText editTextCpf;
@@ -42,7 +43,6 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
     private OkHttpClient client = new OkHttpClient();
     private ConsultorService consultorService;
     private Button btnConsutorEditar;
-
 
 
     @Override
@@ -57,6 +57,7 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
                 ", consultorService=" + consultorService +
                 '}';
     }
+
     @Override
     public void onStatusReceived(StatusModel status) {
         // Lógica para lidar com o status recebido
@@ -68,6 +69,13 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
         // Lógica para lidar com falhas
         System.out.println("Erro ao buscar status: " + e.getMessage());
     }
+
+    @Override
+    public void onError(String message) {
+        // Lógica para lidar com falhas
+        System.out.println("Erro ao buscar status.");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,7 +122,7 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
                     veiculoSelecionado = (VeiculoModel) item;
                     statusService = new StatusService();
                     // Exemplo de chamada para buscar o status
-                  //  StatusModel state = statusService.buscarStatus((int) id);
+                    //  StatusModel state = statusService.buscarStatus((int) id);
 
                     Intent intentStatus = new Intent(ConsultorActivity.this, StatusActivity.class);
 
@@ -123,11 +131,11 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
                     intentStatus.putExtra("previsao", state.getDataInicio());
                     intentStatus.putExtra("statusAtual", state.getDataFim());
                     intentStatus.putExtra("idVeiculo", veiculoSelecionado.getId());
-                   // startActivity(intentStatus);
+                    // startActivity(intentStatus);
 
 
                     // Iniciar a StatusActivity
-                 //   startActivity(intentStatus);
+                    //   startActivity(intentStatus);
                     Toast.makeText(ConsultorActivity.this, "Placa selecionada: " + veiculoSelecionado.getPlaca(), Toast.LENGTH_SHORT).show();
                     // Aqui você pode fazer algo com a placa selecionada, como buscar mais informações.
                 } else {
@@ -177,7 +185,7 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
                         return null;
                     });
 
-                //    System.out.println("testa status " +futureStatus.get().);
+                    //    System.out.println("testa status " +futureStatus.get().);
                     // Verificando o valor da previsão
                     Date dataFim = state.getDataFim();
 
@@ -199,5 +207,6 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
                 startActivity(intent);
             }
         });
+
     }
 }

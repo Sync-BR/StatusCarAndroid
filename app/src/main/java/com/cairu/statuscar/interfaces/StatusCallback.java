@@ -7,4 +7,6 @@ import java.io.IOException;
 public interface StatusCallback {
     void onStatusReceived(StatusModel status);
     void onFailure(IOException e);
+
+    void onError(String message);
 }

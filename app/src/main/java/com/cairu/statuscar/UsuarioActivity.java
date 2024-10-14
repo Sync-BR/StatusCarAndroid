@@ -2,17 +2,12 @@ package com.cairu.statuscar;
 
 
 import android.annotation.SuppressLint;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -23,20 +18,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.cairu.statuscar.adapter.VeiculoAdapter;
 import com.cairu.statuscar.dto.veiculoStatusList;
+import com.cairu.statuscar.interfaces.StatusCallback;
 import com.cairu.statuscar.model.ClienteModel;
+import com.cairu.statuscar.model.StatusModel;
 import com.cairu.statuscar.model.VeiculoModel;
 import com.cairu.statuscar.service.ClienteService;
-import com.cairu.statuscar.service.ConsultorService;
-import com.cairu.statuscar.service.NotificationHelper;
 import com.cairu.statuscar.service.NotificationService;
-import com.cairu.statuscar.service.StatusService;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
 
 import okhttp3.Call;
@@ -48,11 +39,10 @@ import okhttp3.Response;
 public class UsuarioActivity extends AppCompatActivity {
     private OkHttpClient client = new OkHttpClient();
     private Context context;
-    private VeiculoAdapter veiculoAdapter;
     private ClienteService clienteService;
     private Spinner spinnerVeiculos;
     private List<VeiculoModel> veiculoList;
-    private Button buttonUpdate;
+    private Button buttonPerfil;
     private Button buttonVisualizar;
     private VeiculoModel veiculoSelecionado = new VeiculoModel();
     private NotificationService notificationService;
@@ -64,35 +54,65 @@ public class UsuarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_tela_inicial_cliente);
-        buttonUpdate = findViewById(R.id.btn_perfil);
+
+        buttonPerfil = findViewById(R.id.btn_perfil);
         buttonVisualizar = findViewById(R.id.btn_visualizar);
-        spinnerVeiculos = findViewById(R.id.spinnerVeiculos); // Spinner para exibir veículos
         clienteService = new ClienteService(this, spinnerVeiculos);
+        spinnerVeiculos = findViewById(R.id.spinnerVeiculos); // Spinner para exibir veículos
+        // Ação ao clicar no botão "Visualizar"
+        buttonVisualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UsuarioActivity.this, StatusConfirmacaoActivity.class);
 
+                // Assegure-se que os objetos veiculoSelecionado e status estão preenchidos
+                if (veiculoSelecionado != null) {
+                    // Chame o método para buscar o status relacionado ao veículo
+                    buscarStatusDoVeiculo(veiculoSelecionado, new StatusCallback() {
+                        @Override
+                        public void onStatusReceived(StatusModel status) {
+                            // Quando o status é recebido, crie o Intent e passe os dados
+                            Intent intent = new Intent(UsuarioActivity.this, StatusVisualizacaoClienteActivity.class);
 
-        //int userId = getIntent().getIntExtra("userId", -1);
-        //int tipo_usu = getIntent().getIntExtra("tipo_usu", -1);
-        String userCpf = getIntent().getStringExtra("cpf");
+                            // Cria o objeto veiculoStatusList com o veículo e o status recebidos
+                            veiculoStatusList veiculoStatus = new veiculoStatusList(veiculoSelecionado, status);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQUEST_CODE);
-                return;
+                            // Coloca o objeto no Intent
+                            intent.putExtra("veiculoStatus", true);  // Passa o objeto serializado
+
+                            // Inicia a nova Activity
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onFailure(IOException e) {
+
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+                            // Lidar com o erro
+                            Toast.makeText(UsuarioActivity.this, "Erro ao buscar status: " + errorMessage, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(UsuarioActivity.this, "Nenhum veículo selecionado", Toast.LENGTH_SHORT).show();
+                }
             }
-        }
-
+        });
 
         //Botão Perfil
-        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+        buttonPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String userCpf = getIntent().getStringExtra("cpf");
                 getClienteByID(userCpf, new ClienteCallback() {
                     @Override
                     public void onClienteReceived(ClienteModel cliente) {
                         // Use os dados do cliente aqui
                         Intent intent = new Intent(UsuarioActivity.this, PerfilActivity.class);
-                        intent.putExtra("id" ,cliente.getId());
-                        System.out.println("id passado: " +cliente.getId());
+                        intent.putExtra("id", cliente.getId());
+                        System.out.println("id passado: " + cliente.getId());
                         intent.putExtra("nome", cliente.getNome());
                         intent.putExtra("cpf", cliente.getCpf());
                         intent.putExtra("telefone", cliente.getTelefone());
@@ -112,6 +132,18 @@ public class UsuarioActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQUEST_CODE);
+                return;
+            }
+        }
+
+
+        String userCpf = getIntent().getStringExtra("cpf");
 
         NotificationService notificationService = new NotificationService(this);
         notificationService.verificarNotificacao(userCpf, new NotificationService.NotificationCallback() {
@@ -137,8 +169,7 @@ public class UsuarioActivity extends AppCompatActivity {
     }
 
     private void getClienteByID(String cpf, ClienteCallback callback) {
-        System.out.println("id: " +cpf);
-        OkHttpClient client = new OkHttpClient();
+        System.out.println("id: " + cpf);
         String url = "http://186.247.89.58:8080/api/user/consultar/" + cpf;
         Request request = new Request.Builder().url(url).build();
 
@@ -172,8 +203,45 @@ public class UsuarioActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void buscarStatusDoVeiculo(VeiculoModel veiculo, StatusCallback callback) {
+        OkHttpClient client = new OkHttpClient();
+        String url = "http://186.247.89.58:8080/api/status/" + veiculo.getPlaca();  // Suponha que o status seja buscado por placa
+
+        Request request = new Request.Builder().url(url).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                runOnUiThread(() -> callback.onError(e.getMessage()));
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String jsonResponse = response.body().string();
+                    Gson gson = new Gson();
+                    StatusModel status = gson.fromJson(jsonResponse, StatusModel.class);
+
+                    runOnUiThread(() -> callback.onStatusReceived(status));
+                } else {
+                    runOnUiThread(() -> callback.onError("Erro ao buscar status: " + response.code()));
+                }
+            }
+        });
+    }
+
+
+
+
+
+
+
+
 }
- interface ClienteCallback {
+
+interface ClienteCallback {
     void onClienteReceived(ClienteModel cliente);
+
     void onError(String errorMessage);
 }

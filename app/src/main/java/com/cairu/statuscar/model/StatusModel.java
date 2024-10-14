@@ -1,8 +1,9 @@
 package com.cairu.statuscar.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class StatusModel {
+public class StatusModel implements Serializable {
     private int id;
     private String status;
     private Date dataInicio;

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".service.StatusConfirmacaoActivity"
+    tools:context=".StatusConfirmacaoActivity"
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center_horizontal">
@@ -44,7 +44,7 @@
         android:textStyle="bold"/>
 
     <Button
-        android:id="@+id/btn_alterarStatus"
+        android:id="@+id/btn_voltar_pg_inicial_consultor"
         style="@style/Button_Update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

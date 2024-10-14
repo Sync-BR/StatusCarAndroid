@@ -86,6 +86,7 @@
         android:padding="10dp"
         android:hint="@string/cpf"
         android:textColorHint="@color/black"
+        android:textColor="@color/black"
         android:textStyle="bold"/>
 
     <!-- Spinner para Status -->
@@ -96,6 +97,8 @@
         android:layout_marginBottom="15dp"
         android:padding="10dp"
         style="@style/SpinnerCustomStyle"
+        android:outlineSpotShadowColor="@color/black"
+        android:outlineAmbientShadowColor="@color/black"
         android:spinnerMode="dropdown" />
 
     <!-- Botão de Buscar -->
@@ -111,7 +114,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/green_light"
+        android:textColor="@color/black"
         android:enabled="false"
         android:text="Editar" />
 

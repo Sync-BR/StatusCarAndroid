@@ -1,6 +1,8 @@
 package com.cairu.statuscar.model;
 
-public class VeiculoModel {
+import java.io.Serializable;
+
+public class VeiculoModel implements Serializable {
     private int id;
     private int clienteID;
     private String modelo;
@@ -10,7 +12,7 @@ public class VeiculoModel {
     private String previsao; // Presumindo que você tenha um campo para a previsão
     private String statusAtual;
 
-    public VeiculoModel() {
+    public VeiculoModel()  {
     }
 
     @Override
