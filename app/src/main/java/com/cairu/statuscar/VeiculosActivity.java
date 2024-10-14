@@ -100,6 +100,7 @@ public class VeiculosActivity extends AppCompatActivity {
         buttonCarVoltar = findViewById(R.id.buttonCarVoltar);
         spinnerStatus = findViewById(R.id.spinnerStatusVeiculos);
         spinnerClientes = findViewById(R.id.spinnerClientes);
+
         //Definir valores padrões no status
         ArrayAdapter<CharSequence> Arrayadapter = ArrayAdapter.createFromResource(this,R.array.status_array, android.R.layout.simple_spinner_item);
 

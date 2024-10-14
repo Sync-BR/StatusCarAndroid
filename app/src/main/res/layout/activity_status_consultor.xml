@@ -46,6 +46,7 @@
             android:padding="8dp"
             android:text="Modelo: Palio Fire\nPlaca: HAB0783\nPrevisão: 01/01/2024 00:00\nStatus Atual: Aguardando chegada"
             android:textColorHint="@color/black"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <!-- Título para Status -->
@@ -64,7 +65,9 @@
             android:layout_height="58dp"
             android:id="@+id/spinner_status_update"
             style="@style/SpinnerCustomStyle"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:outlineAmbientShadowColor="@color/black"
+            android:outlineSpotShadowColor="@color/black"/>
 
         <!-- Título para Data -->
         <TextView
