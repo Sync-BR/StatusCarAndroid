@@ -17,6 +17,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
+import com.cairu.statuscar.interfaces.VeiculoCallback;
 import com.cairu.statuscar.model.ClienteModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -69,4 +70,93 @@ public class ClienteService {
         });
         return listClientes;
     }
+
+    public void buscarVeiculo(String cpf, VeiculoCallback callback){
+        ArrayList<VeiculoModel> lista = new ArrayList<VeiculoModel>();
+
+        VeiculoModel veiculo1 = new VeiculoModel();
+        veiculo1.setAno(2021);
+        veiculo1.setPlaca("ACC2201");
+        veiculo1.setMarca("Fiat");
+        veiculo1.setModelo("Palio");
+        veiculo1.setPrevisao("2022-12-01 12:00:00");
+
+        VeiculoModel veiculo2 = new VeiculoModel();
+        veiculo2.setAno(2022);
+        veiculo2.setPlaca("ACC2202");
+        veiculo2.setMarca("Fiat");
+        veiculo2.setModelo("Uno");
+        veiculo2.setPrevisao("2022-12-01 12:00:00");
+
+        VeiculoModel veiculo3 = new VeiculoModel();
+        veiculo3.setAno(2022);
+        veiculo3.setPlaca("ACC2202");
+        veiculo3.setMarca("Fiat");
+        veiculo3.setModelo("Uno");
+        veiculo3.setPrevisao("2022-12-01 12:00:00");
+
+        lista.add(veiculo1);
+        lista.add(veiculo2);
+        lista.add(veiculo3);
+
+        atualizarSpinner(lista);
+
+        /*String url = "http://186.247.89.58:8080/api/veiculos/consultar/veiculos/cpf/"+cpf   ;
+        System.out.println(cpf);
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        cliente.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String jsonData = response.body().string();
+                    System.out.println(jsonData);
+                    List<VeiculoModel> veiculos = new Gson().fromJson(jsonData, new TypeToken<List<VeiculoModel>>() {}.getType());
+
+                    // Atualiza o Spinner na thread principal
+                    ((AppCompatActivity) context).runOnUiThread(() -> {
+                        atualizarSpinner(veiculos);
+                    });
+                }
+
+            }
+        });*/
+
+    }
+
+
+    public void atualizarSpinner(List<VeiculoModel> veiculos) {
+
+        // Verifica se a lista de veículos não está vazia
+        if (veiculos != null && !veiculos.isEmpty()) {
+            System.out.println("Populando o Spinner com veículos: " + veiculos.toString());
+
+        ArrayAdapter<VeiculoModel> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, veiculos);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerVeiculos.setAdapter(adapter);
+
+        System.out.println(adapter);
+        spinnerVeiculos.setAdapter(adapter);
+        } else {
+            System.out.println("A lista de veículos está vazia ou nula");
+        }
+
+        //  List<String> veiculosPlacas = new ArrayList<>();
+        //  for(VeiculoModel veiculoModel: veiculos){
+        //      veiculosPlacas.add(veiculoModel.getPlaca());
+        // }
+
+        //   ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, veiculosPlacas);
+        // adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+    }
+
+
 }

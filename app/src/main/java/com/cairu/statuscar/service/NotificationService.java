@@ -67,5 +67,13 @@ public class NotificationService extends AppCompatActivity {
     }
 
 
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                runOnUiThread(() -> {
+                    Toast.makeText(context, "Falha ao buscar dados", Toast.LENGTH_SHORT).show();
+                    callback.onResult(false); // Chama o callback com false
+                });
+            }
 
 }
