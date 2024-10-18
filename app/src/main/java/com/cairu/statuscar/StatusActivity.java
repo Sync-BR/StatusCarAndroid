@@ -25,6 +25,7 @@ import com.cairu.statuscar.model.VeiculoModel;
 import com.cairu.statuscar.service.ConsultorService;
 import com.cairu.statuscar.service.NotificationService;
 import com.cairu.statuscar.service.StatusService;
+import com.cairu.statuscar.service.VeiculoService;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -49,6 +50,7 @@ public class StatusActivity extends AppCompatActivity implements StatusCallback 
     private int idVeiculo;
     private Date dateFinal;
     private Button btnAtualizar;
+    private Button btnDeletar;
 
     public int getIdStatus() {
         return idStatus;
@@ -79,6 +81,7 @@ public class StatusActivity extends AppCompatActivity implements StatusCallback 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status_consultor); // Certifique-se de usar o layout correto
         spinner = findViewById(R.id.spinner_status_update);
+        btnDeletar = findViewById(R.id.btnRemoveVehicle);
         btnAtualizar = findViewById(R.id.btn_alterarStatus);
         // Recuperar os dados que foram passados
         Intent intent = getIntent();
@@ -88,7 +91,7 @@ public class StatusActivity extends AppCompatActivity implements StatusCallback 
         String statusAtual = intent.getStringExtra("statusAtual");
         this.idStatus = intent.getIntExtra("idStatus", -1);
         this.idVeiculo = intent.getIntExtra("idDoVeiculo", -1);
-        System.out.println("id Status " +idStatus+ " id veiculo " +idVeiculo);
+        System.out.println("id Status " + idStatus + " id veiculo " + idVeiculo);
         statusService = new StatusService();
         editTextDate = findViewById(R.id.editTextDateUpdate);
         editTextDate.setOnClickListener(v -> {
@@ -102,22 +105,35 @@ public class StatusActivity extends AppCompatActivity implements StatusCallback 
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     StatusActivity.this,
                     (view, selectedYear, selectedMonth, selectedDay) -> {
-                        // Atualizar o EditText com a data selecionada
-                        String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
-                        System.out.println(selectedDate);
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                        String formattedDate = dateFormat.format(calendar.getTime());
+                        // Atualizar o Calendar com a data selecionada
+                        calendar.set(Calendar.YEAR, selectedYear);
+                        calendar.set(Calendar.MONTH, selectedMonth);
+                        calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
+
+                        // Formatar a data selecionada para exibição no EditText
+                        SimpleDateFormat displayDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                        String selectedDate = displayDateFormat.format(calendar.getTime());
+
+                        // Exibir a data formatada no EditText
+                        editTextDate.setText(selectedDate);
+
+                        // Se precisar da data em formato diferente para uso interno ou envio ao servidor:
+                        SimpleDateFormat internalDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                        String formattedDate = internalDateFormat.format(calendar.getTime());
+
                         try {
-                            dateFinal = dateFormat.parse(formattedDate);
+                            dateFinal = internalDateFormat.parse(formattedDate);
                         } catch (ParseException e) {
                             throw new RuntimeException(e);
                         }
-                        editTextDate.setText(formattedDate);
-                        System.out.println(formattedDate);
+
+                        // Log para verificação
+                        System.out.println("Data formatada internamente: " + formattedDate);
                     },
                     year, month, day);
             datePickerDialog.show();
         });
+
 
         ArrayAdapter<CharSequence> Arrayadapter = ArrayAdapter.createFromResource(this, R.array.status_array, android.R.layout.simple_spinner_item);
         Arrayadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -146,6 +162,7 @@ public class StatusActivity extends AppCompatActivity implements StatusCallback 
                                     StatusModel status = new StatusModel();
                                     status.setId(idStatus);
                                     status.setStatus(spinner.getSelectedItem().toString());
+                                    status.setDataFimFromString(editTextDate.getText().toString());
                                     // Chama o método para atualizar o status
                                     statusService.updateStatus(idStatus, status);
                                     Toast.makeText(StatusActivity.this, "Status atualizado com sucesso!", Toast.LENGTH_SHORT).show();
@@ -153,12 +170,11 @@ public class StatusActivity extends AppCompatActivity implements StatusCallback 
                                     NotificacaoModel notificacaoModel = new NotificacaoModel();
                                     notificacaoModel.setId_Veiculo(getIdVeiculo());
                                     notificacaoModel.setId_Status(getIdStatus());
+
                                     notificacaoModel.setDescricao("Seu status do veiculo foi alterado");
                                     notificacaoModel.setDescricao("O Veiculo " + modelo + "Foi alterado para o status" + status.getStatus());
-                                  //  notificationService.criarNotificacao(notificacaoModel);
+                                    //  notificationService.criarNotificacao(notificacaoModel);
                                     notificationService.consultarNotificacoesPorPlaca(placa, notificacaoModel);
-                                    System.out.println("notificacaoModel: " +notificacaoModel);
-
                                 } else {
                                     System.out.println("Erro: veiculoSelecionado é null");
                                 }
@@ -166,6 +182,30 @@ public class StatusActivity extends AppCompatActivity implements StatusCallback 
                         })
                         .setNegativeButton("Não", null) // Ação ao clicar em "Não"
                         .show(); // Mostra o AlertDialog
+            }
+        });
+
+        btnDeletar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(StatusActivity.this)
+                        .setTitle("Tem certeza de que deseja excluir este veículo?").setMessage("")
+                        .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                VeiculoService veiculoService = new VeiculoService();
+                                veiculoService.deletarVeiculo(placa);
+//                                Intent telaInicial = new Intent(StatusActivity.this, ConsultorActivity.class);
+//                                startActivity(telaInicial);
+                                Intent resultIntent = new Intent();
+                                resultIntent.putExtra("mensagem", "Dados do veículo atualizados com sucesso!");
+                                setResult(RESULT_OK, resultIntent);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("Não", null)
+                        .show();
+
             }
         });
 

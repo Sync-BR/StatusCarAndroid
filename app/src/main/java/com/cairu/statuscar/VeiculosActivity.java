@@ -37,8 +37,6 @@ public class VeiculosActivity extends AppCompatActivity {
     private int idSelected, idClienteSelected;
     private String statusSelected;
     private Context context;
-    private EditText editTextDate;
-    private Date dateFinal;
 
 
     @Override
@@ -62,34 +60,7 @@ public class VeiculosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addveiculos);
-        editTextDate = findViewById(R.id.editTextDate);
-        editTextDate.setOnClickListener(v -> {
-            // Obter a data atual
-            Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-            // Criar e exibir o DatePickerDialog
-            DatePickerDialog datePickerDialog = new DatePickerDialog(
-                    VeiculosActivity.this,
-                    (view, selectedYear, selectedMonth, selectedDay) -> {
-                        // Atualizar o EditText com a data selecionada
-                        String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
-                        System.out.println(selectedDate);
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                        String formattedDate = dateFormat.format(calendar.getTime());
-                        try {
-                            dateFinal = dateFormat.parse(formattedDate) ;
-                        } catch (ParseException e) {
-                            throw new RuntimeException(e);
-                        }
-                        editTextDate.setText(formattedDate);
-                        System.out.println(formattedDate);
-                    },
-                    year, month, day);
-            datePickerDialog.show();
-        });
 
         editTextCarVeiculo = findViewById(R.id.editTextCarVeiculo);
         editTextCarPlaca = findViewById(R.id.editTextCarPlaca);
@@ -108,21 +79,14 @@ public class VeiculosActivity extends AppCompatActivity {
 
         spinnerStatus.setAdapter(Arrayadapter);
 
-        ClienteService clienteService = new ClienteService(VeiculosActivity.this);
+        ClienteService clienteService = new ClienteService(VeiculosActivity.this, null);
         List<ClienteModel> clienteModels = clienteService.consumirClientes();
 
-
-        System.out.println(clienteModels);
-        // Cria um ArrayAdapter usando o layout padrão e a lista de clientes
-  
 
         ArrayAdapter<ClienteModel> adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,clienteModels
         );
-
-        System.out.println("IDS: " +adapter.getContext());
-        System.out.println("Status selecionado " +Arrayadapter.getContext());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Define o listener para o Spinner
         spinnerClientes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -187,9 +151,19 @@ public class VeiculosActivity extends AppCompatActivity {
             return;
         }
         VeiculoService veiculoService = new VeiculoService();
-        veiculoService.cadastrarVeiculos(id,veiculo,placa, modelo,ano, statusSelected, dateFinal,this);
+        veiculoService.cadastrarVeiculos(id,veiculo,placa, modelo,ano, statusSelected,this);
+        limparCampos();
     }
-
+    private void limparCampos() {
+        // Limpa os campos de texto
+        editTextCarVeiculo.setText("");
+        editTextCarPlaca.setText("");
+        editTextCarModelo.setText("");
+        editTextCarAno.setText("");
+        // Se necessário, redefina o Spinner para o primeiro item ou um item padrão
+        spinnerStatus.setSelection(0); // Se desejar redefinir o Spinner de Status
+        spinnerClientes.setSelection(0); // Se desejar redefinir o Spinner de Clientes
+    }
     private void showBottomSheet() {
         BottomSheetMenuFragment bottomSheetMenuFragment = new BottomSheetMenuFragment();
         bottomSheetMenuFragment.show(getSupportFragmentManager(), bottomSheetMenuFragment.getTag());
@@ -202,7 +176,7 @@ public class VeiculosActivity extends AppCompatActivity {
             View view = inflater.inflate(R.layout.bottom_sheet_menu, container, false);
 
             Button btnAddVehicle = view.findViewById(R.id.btnAddVehicle);
-            Button btnRemoveVehicle = view.findViewById(R.id.btnRemoveVehicle);
+            Button btnRemoveVehicle = view.findViewById(R.id.btncancelar);
 
             btnAddVehicle.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -223,4 +197,6 @@ public class VeiculosActivity extends AppCompatActivity {
             return view;
         }
     }
+
+
 }

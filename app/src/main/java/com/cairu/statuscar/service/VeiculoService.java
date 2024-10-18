@@ -1,10 +1,12 @@
 package com.cairu.statuscar.service;
 
 
+import android.content.Intent;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.cairu.statuscar.ConsultorActivity;
 import com.cairu.statuscar.VeiculosActivity;
 import android.content.Context;
 
@@ -29,7 +31,7 @@ public class VeiculoService {
 
 
     public void deletarVeiculo(String placa){
-        String url = "http://localhost:8080/api/veiculos/deletar/"+placa;
+        String url = "http://186.247.89.58:8080/api/veiculos/deletar/"+placa;
         OkHttpClient cliente = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
@@ -53,7 +55,7 @@ public class VeiculoService {
         });
     }
 
-    public void cadastrarVeiculos(int clienteID, String modelo, String placa, String marca, int ano, String status, Date dateFinal, Context context){
+    public void cadastrarVeiculos(int clienteID, String modelo, String placa, String marca, int ano, String status, Context context){
         String url = "http://186.247.89.58:8080/api/veiculos/addveiculo/"+status;
         String json = criarJson(clienteID, modelo, placa, marca, ano);
         System.out.println(json);
@@ -73,6 +75,8 @@ public class VeiculoService {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 ((VeiculosActivity) context).runOnUiThread(() -> {
                     if (response.isSuccessful()) {
+                        Intent intent  = new Intent(context, ConsultorActivity.class);
+                        context.startActivity(intent);
                         Toast.makeText(context, "Veiculo cadastrado com sucesso", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(context, "Erro no cadastro", Toast.LENGTH_SHORT).show();

@@ -44,10 +44,11 @@
             android:name=".CadastroActivity"
             android:exported="true" />
         <activity android:name=".UsuarioActivity" />
-        <activity
-            android:name=".DeleteVeiculosActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
         <activity android:name=".PerfilActivity" />
+        <activity android:name=".UsuarioStatusActivity" />
+
+
+
     </application>
 
 </manifest>

@@ -4,17 +4,17 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp">
-
+    <Button
+        android:id="@+id/btncancelar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remover Veículo" />
     <Button
         android:id="@+id/btnAddVehicle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Adicionar Veículo" />
 
-    <Button
-        android:id="@+id/btnRemoveVehicle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Remover Veículo" />
+
 
 </LinearLayout>

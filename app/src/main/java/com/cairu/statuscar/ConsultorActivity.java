@@ -1,9 +1,6 @@
 package com.cairu.statuscar;
 
 import okhttp3.OkHttpClient;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,21 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.cairu.statuscar.interfaces.StatusCallback;
 import com.cairu.statuscar.model.StatusModel;
 import com.cairu.statuscar.model.VeiculoModel;
 import com.cairu.statuscar.service.ConsultorService;
 import com.cairu.statuscar.service.StatusService;
-
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 
@@ -201,6 +191,14 @@ public class ConsultorActivity  extends AppCompatActivity implements StatusCallb
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregarDados(); // Atualiza os dados toda vez que a atividade é retomada
+    }
 
+    private void carregarDados() {
+        // Sua lógica para carregar dados, como fazer requisições para API, etc.
+    }
 
 }

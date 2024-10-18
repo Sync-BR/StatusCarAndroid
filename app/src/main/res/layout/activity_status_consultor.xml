@@ -101,6 +101,16 @@
             android:textColor="@color/green_light"
             android:padding="10dp"
             android:layout_marginBottom="16dp"/>
+        <!-- Botão para apagar veiculo -->
+        <Button
+            android:id="@+id/btnRemoveVehicle"
+            style="@style/Button_Update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Apagar_veiculo"
+            android:textColor="@color/green_light"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"/>
 
     </LinearLayout>
 

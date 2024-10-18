@@ -3,6 +3,7 @@
     <string name="adicionar_veiculo">Adicionar Veículo</string>
     <string name="remover_veiculo">Remover Veículo</string>
     <string name="alterar_status">Alterar Status e Previsão</string>
+    <string name="Apagar_veiculo">Deletar veiculo</string>
     <string name="modelo_placa">Modelo Veículo / Placa</string>
     <string name="btn_perfil">Perfil</string>
     <string name="data_status_update">DATA</string>

@@ -111,15 +111,7 @@
         style="@style/SpinnerGreyStyle"
         android:spinnerMode="dropdown"/>
 
-    <EditText
-        android:id="@+id/editTextDate"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        style="@style/Text_View"
-        android:hint="Selecionar data final"
-        android:textColorHint="@color/black"
-        android:focusable="false"
-        android:clickable="true" />
+
 
     <Button
         android:id="@+id/buttonCarCadastrar"

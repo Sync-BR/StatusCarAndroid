@@ -2,6 +2,9 @@ package com.cairu.statuscar.service;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
+
+import com.cairu.statuscar.ConsultorActivity;
+import com.cairu.statuscar.StatusActivity;
 import com.cairu.statuscar.model.StatusModel;
 import com.cairu.statuscar.model.VeiculoModel;
 import com.google.gson.Gson;
@@ -10,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import okhttp3.Call;
@@ -53,6 +57,7 @@ public class StatusService {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     String responseData = response.body().string();
+
                 } else {
                     System.out.println("Erro: " + response.code());
                 }

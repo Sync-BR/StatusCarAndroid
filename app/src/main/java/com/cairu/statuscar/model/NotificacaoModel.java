@@ -12,12 +12,7 @@ public class NotificacaoModel {
     public NotificacaoModel() {
         this.data = new Date();
     }
-    public NotificacaoModel( int id_Veiculo, int id_Status, String descricao) {
-        this.id_Veiculo = id_Veiculo;
-        this.id_Status = id_Status;
-        this.descricao = descricao;
-        this.data = new Date();
-    }
+
 
     @Override
     public String toString() {

@@ -17,19 +17,6 @@ public class VeiculoModel {
     public String toString() {
         return placa;
     }
-    //    @Override
-//    public String toString() {
-//        return "VeiculoModel{" +
-//                "id=" + id +
-//                ", clienteID=" + clienteID +
-//                ", modelo='" + modelo + '\'' +
-//                ", placa='" + placa + '\'' +
-//                ", marca='" + marca + '\'' +
-//                ", ano=" + ano +
-//                ", previsao='" + previsao + '\'' +
-//                ", statusAtual='" + statusAtual + '\'' +
-//                '}';
-//    }
 
     public int getId() {
         return id;
