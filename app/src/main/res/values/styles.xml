@@ -20,7 +20,7 @@
 
     <!-- res/values/styles.xml -->
     <style name="SpinnerGreyStyle" parent="@android:style/Widget.Spinner">
-        <item name="android:background">@drawable/spinner_background_grey</item>
+        <item name="android:background">@drawable/spinner_background</item>
         <item name="android:textColor">@android:color/black</item> <!-- Texto preto para o conteúdo -->
         <item name="android:textSize">16sp</item>
     </style>
