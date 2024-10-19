@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
     android:gravity="center_horizontal"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    tools:context=".UsuarioActivity">
 
     <!-- Título da Página -->
     <LinearLayout
@@ -48,14 +50,30 @@
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
         />
+
+    <!-- Título para Buscar Veículo -->
+    <TextView
+        android:id="@+id/label_carro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/buscar_veiculo"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp" />
+
+    <!-- Spinner para Status -->
     <Spinner
         android:id="@+id/spinner_veiculo_list"
         android:layout_width="340dp"
         android:layout_height="48dp"
         android:layout_marginBottom="15dp"
         android:padding="10dp"
-        style="@style/SpinnerGreyStyle"
-        android:spinnerMode="dropdown" />
+        android:background="@drawable/spinner_background"
+        android:popupBackground="@color/white"
+        style="@style/SpinnerCustomStyle"
+    />
 
     <Button
         android:id="@+id/btn_visualizar"

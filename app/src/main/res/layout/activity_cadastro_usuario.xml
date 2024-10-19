@@ -43,6 +43,7 @@
             android:layout_marginBottom="12dp"
             android:padding="12dp"
             android:hint="@string/nome_new"
+            android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:inputType="textPersonName" />
 
@@ -54,6 +55,7 @@
             android:layout_marginBottom="12dp"
             android:padding="12dp"
             android:hint="@string/cpf_new"
+            android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:inputType="number" />
 
@@ -65,6 +67,7 @@
             android:layout_marginBottom="12dp"
             android:padding="12dp"
             android:hint="@string/telefone_new"
+            android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:inputType="phone" />
 
@@ -76,6 +79,7 @@
             android:layout_marginBottom="12dp"
             android:padding="12dp"
             android:hint="@string/e_mail_new"
+            android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:inputType="textEmailAddress" />
 
@@ -87,6 +91,7 @@
             android:layout_marginBottom="12dp"
             android:padding="12dp"
             android:hint="@string/endereco_new"
+            android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:inputType="textPostalAddress" />
 
@@ -98,6 +103,7 @@
             android:layout_marginBottom="12dp"
             android:padding="12dp"
             android:hint="@string/senha_new"
+            android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:inputType="textPassword"/>
 
@@ -109,6 +115,7 @@
             android:layout_marginBottom="24dp"
             android:padding="12dp"
             android:hint="@string/confirmar_senha_new"
+            android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:inputType="textPassword" />
 
@@ -141,6 +148,5 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp" />
         </LinearLayout>
-
     </LinearLayout>
 </ScrollView>

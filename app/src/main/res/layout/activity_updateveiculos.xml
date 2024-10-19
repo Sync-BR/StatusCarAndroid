@@ -40,8 +40,9 @@
         style="@style/Text_View"
         android:layout_width="359dp"
         android:layout_height="wrap_content"
-        android:hint="Nome do veículo"
-            android:textColorHint="@color/black"
+        android:hint="Marca do veículo"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:inputType="textPersonName" />
 
         <EditText
@@ -50,7 +51,8 @@
         android:layout_height="wrap_content"
         style="@style/Text_View"
         android:hint="Placa do veículo"
-            android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:inputType="text" />
 
         <EditText
@@ -58,8 +60,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Text_View"
+        android:textColor="@color/black"
         android:hint="Modelo do veículo"
-            android:textColorHint="@color/black"
+        android:textColorHint="@color/black"
         android:inputType="text" />
 
         <EditText
@@ -67,8 +70,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Text_View"
-        android:hint="Ano do carro"
-            android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:hint="Ano do veículo"
+        android:textColorHint="@color/black"
         android:inputType="number" />
 
         <Spinner
@@ -76,8 +80,8 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-        style="@style/SpinnerGreyStyle"
+        android:layout_marginEnd="20dp"
+        style="@style/SpinnerCustomStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -87,7 +91,7 @@
         android:layout_width="250dp"
         android:layout_height="48dp"
         android:hint="Selecionar data"
-            android:layout_marginStart="20dp"
+        android:layout_marginStart="20dp"
         android:focusable="false"
         android:clickable="true" />
 

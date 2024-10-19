@@ -53,7 +53,7 @@
         android:layout_height="48dp"
         android:layout_marginBottom="15dp"
         android:padding="10dp"
-        style="@style/SpinnerGreyStyle"
+        style="@style/SpinnerCustomStyle"
         android:spinnerMode="dropdown" />
 
     <EditText
@@ -61,8 +61,9 @@
         android:layout_width="340dp"
         style="@style/Text_View"
         android:layout_height="wrap_content"
-        android:hint="Nome do veiculo"
+        android:hint="Marca do veículo"
         android:textColorHint="@color/black"
+        android:textColor="@color/black"
         android:inputType="textPersonName" />
 
     <EditText
@@ -70,8 +71,9 @@
         style="@style/Text_View"
         android:layout_width="340dp"
         android:layout_height="wrap_content"
-        android:hint="Placa do veiculo"
+        android:hint="Placa do veículo"
         android:textColorHint="@color/black"
+        android:textColor="@color/black"
         android:inputType="text" />
 
     <EditText
@@ -79,8 +81,9 @@
         android:layout_width="340dp"
         android:layout_height="wrap_content"
         style="@style/Text_View"
-        android:hint="Modelo do veiculo"
+        android:hint="Modelo do veículo"
         android:textColorHint="@color/black"
+        android:textColor="@color/black"
         android:inputType="text" />
 
     <EditText
@@ -88,8 +91,9 @@
         android:layout_width="340dp"
         android:layout_height="wrap_content"
         style="@style/Text_View"
-        android:hint="Ano do carro"
+        android:hint="Ano do veículo"
         android:textColorHint="@color/black"
+        android:textColor="@color/black"
         android:inputType="number" />
 
     <TextView
@@ -108,7 +112,7 @@
         android:layout_height="48dp"
         android:layout_marginBottom="15dp"
         android:padding="10dp"
-        style="@style/SpinnerGreyStyle"
+        style="@style/SpinnerCustomStyle"
         android:spinnerMode="dropdown"/>
 
 

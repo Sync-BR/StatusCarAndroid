@@ -80,7 +80,7 @@ public class UsuarioStatusActivity extends AppCompatActivity {
                     runOnUiThread(() -> {
                         // Pega o texto já existente no TextView e adiciona o status
                         String textoAtual = textView.getText().toString();
-                        textView.setText(textoAtual + "\nStatus: " + status.getStatus()+ "\n Privisão de entregar: " +status.getDataFim());
+                        textView.setText(textoAtual + "\nStatus: " + status.getStatus()+ "\n Previsão: " +status.getDataFim());
                     });
                 }
             }

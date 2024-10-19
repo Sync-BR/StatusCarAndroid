@@ -34,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Placa"
+        android:textColor="@color/black"
         android:textColorHint="@color/black"
         style="@style/Text_View"
         android:inputType="textPersonName" />

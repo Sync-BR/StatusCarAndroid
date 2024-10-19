@@ -47,6 +47,7 @@
             android:layout_marginBottom="16dp"
             android:padding="12dp"
             android:hint="CPF"
+            android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:inputType="number" />
 
@@ -59,6 +60,7 @@
             android:layout_marginBottom="16dp"
             android:padding="12dp"
             android:hint="Senha"
+            android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:inputType="textPassword" />
 
