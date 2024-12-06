@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:gravity="center_horizontal"
     android:background="@drawable/background"
-    tools:context=".UsuarioActivity">
+    tools:context=".UsuarioActivity"
+    android:padding="16dp">
 
     <!-- Título da Página -->
     <LinearLayout
@@ -17,27 +18,14 @@
         android:gravity="center_vertical"
         android:layout_marginBottom="16dp">
 
-        <!-- Título da Página -->
-        <TextView
-            android:id="@+id/pagina_incial_consultor"
-            android:layout_width="0dp"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/pagina_inicial"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:layout_marginEnd="8dp" />
-
-        <!-- Botão para Adicionar Veículo -->
-        <Button
-            android:id="@+id/btn_perfil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_perfil"
-            android:backgroundTint="@color/green_light"
-            android:textColor="@color/black"
-            />
+            android:background="@color/black"
+            app:popupTheme="@style/ToolbarMenuTheme"
+            app:title="Perfil do Usuário"
+            app:titleTextColor="@color/white" />
     </LinearLayout>
 
 

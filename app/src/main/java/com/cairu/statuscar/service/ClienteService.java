@@ -109,6 +109,8 @@ public class ClienteService {
 
 
     private void atualizarSpinner(List<VeiculoModel> veiculos) {
+        if(veiculos.size() != 0){
+
         ArrayAdapter<VeiculoModel> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, veiculos);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerVeiculos.setAdapter(adapter);
@@ -121,6 +123,7 @@ public class ClienteService {
         // adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         System.out.println(adapter);
         spinnerVeiculos.setAdapter(adapter);
+        }
     }
 
 

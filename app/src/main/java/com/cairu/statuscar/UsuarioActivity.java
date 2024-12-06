@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -16,6 +18,7 @@ import android.Manifest;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import com.cairu.statuscar.dto.veiculoStatusList;
@@ -37,12 +40,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class UsuarioActivity extends AppCompatActivity {
+    private Toolbar toolbar;
     private OkHttpClient client = new OkHttpClient();
     private Context context;
     private ClienteService clienteService;
     private Spinner spinnerVeiculos;
     private List<VeiculoModel> veiculoList;
-    private Button buttonPerfil;
     private Button buttonVisualizar;
     private VeiculoModel veiculoSelecionado = new VeiculoModel();
     private NotificationService notificationService;
@@ -54,8 +57,8 @@ public class UsuarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_tela_inicial_cliente);
-
-        buttonPerfil = findViewById(R.id.btn_perfil);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         buttonVisualizar = findViewById(R.id.btn_visualizar);
         clienteService = new ClienteService(this, spinnerVeiculos);
         spinnerVeiculos = findViewById(R.id.spinnerVeiculos); // Spinner para exibir veículos
@@ -101,38 +104,6 @@ public class UsuarioActivity extends AppCompatActivity {
             }
         });
 
-        //Botão Perfil
-        buttonPerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String userCpf = getIntent().getStringExtra("cpf");
-                getClienteByID(userCpf, new ClienteCallback() {
-                    @Override
-                    public void onClienteReceived(ClienteModel cliente) {
-                        // Use os dados do cliente aqui
-                        Intent intent = new Intent(UsuarioActivity.this, PerfilActivity.class);
-                        intent.putExtra("id", cliente.getId());
-                        System.out.println("id passado: " + cliente.getId());
-                        intent.putExtra("nome", cliente.getNome());
-                        intent.putExtra("cpf", cliente.getCpf());
-                        intent.putExtra("telefone", cliente.getTelefone());
-                        intent.putExtra("email", cliente.getEmail());
-                        intent.putExtra("endereco", cliente.getEndereco());
-                        intent.putExtra("senha", cliente.getSenha());
-
-
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onError(String errorMessage) {
-                        // Lide com o erro aqui, se necessário
-                    }
-                });
-            }
-        });
-
-
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -167,7 +138,50 @@ public class UsuarioActivity extends AppCompatActivity {
 
         clienteService.buscarVeiculo(userCpf);
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_perfil, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menu_perfil) {
+            //User profile screen
+            Toast.makeText(this, "Abrindo perfil", Toast.LENGTH_SHORT).show();
+            String userCpf = getIntent().getStringExtra("cpf");
+            getClienteByID(userCpf, new ClienteCallback() {
+                @Override
+                public void onClienteReceived(ClienteModel cliente) {
+                    Intent intent = new Intent(UsuarioActivity.this, PerfilActivity.class);
+                    intent.putExtra("id", cliente.getId());
+                    System.out.println("id passado: " + cliente.getId());
+                    intent.putExtra("nome", cliente.getNome());
+                    intent.putExtra("cpf", cliente.getCpf());
+                    intent.putExtra("telefone", cliente.getTelefone());
+                    intent.putExtra("email", cliente.getEmail());
+                    intent.putExtra("endereco", cliente.getEndereco());
+                    intent.putExtra("senha", cliente.getSenha());
+
+
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+
+                }
+            });
+
+            return true;
+        } else if (id == R.id.menu_sair) {
+            Toast.makeText(this, "Saindo", Toast.LENGTH_SHORT).show();
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void getClienteByID(String cpf, ClienteCallback callback) {
         System.out.println("id: " + cpf);
         String url = "http://186.247.89.58:8080/api/user/consultar/" + cpf;
